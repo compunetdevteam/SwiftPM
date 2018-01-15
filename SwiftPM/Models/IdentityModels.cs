@@ -1,8 +1,7 @@
-﻿using System.Data.Entity;
+﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace SwiftPM.Models
 {
@@ -18,16 +17,20 @@ namespace SwiftPM.Models
         }
     }
 
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+    public class SwiftPmDb : IdentityDbContext<ApplicationUser>
     {
-        public ApplicationDbContext()
+        public SwiftPmDb()
             : base("DefaultConnection", throwIfV1Schema: false)
         {
         }
 
-        public static ApplicationDbContext Create()
+        public static SwiftPmDb Create()
         {
-            return new ApplicationDbContext();
+            return new SwiftPmDb();
         }
+
+        public System.Data.Entity.DbSet<SwiftPMModel.Project> Projects { get; set; }
+
+        public System.Data.Entity.DbSet<SwiftPMModel.Department> Departments { get; set; }
     }
 }
