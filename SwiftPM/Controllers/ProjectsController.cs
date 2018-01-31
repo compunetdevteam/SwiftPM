@@ -9,12 +9,12 @@ namespace SwiftPM.Controllers
 {
     public class ProjectsController : Controller
     {
-        private SwiftPmDb db = new SwiftPmDb();
+        private readonly SwiftPmDb _db = new SwiftPmDb();
 
         // GET: Projects
         public async Task<ActionResult> Index()
         {
-            return View(await db.Projects.ToListAsync());
+            return View(await _db.Projects.ToListAsync());
         }
 
         // GET: Projects/Details/5
@@ -24,7 +24,7 @@ namespace SwiftPM.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Project project = await db.Projects.FindAsync(id);
+            Project project = await _db.Projects.FindAsync(id);
             if (project == null)
             {
                 return HttpNotFound();
@@ -43,12 +43,12 @@ namespace SwiftPM.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "ProjectId,ProjectName,ProjectCode,CreationDate,ProjectDescription,PriorityLevel")] Project project)
+        public async Task<ActionResult> Create(Project project)
         {
             if (ModelState.IsValid)
             {
-                db.Projects.Add(project);
-                await db.SaveChangesAsync();
+                _db.Projects.Add(project);
+                await _db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
 
@@ -62,7 +62,7 @@ namespace SwiftPM.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Project project = await db.Projects.FindAsync(id);
+            Project project = await _db.Projects.FindAsync(id);
             if (project == null)
             {
                 return HttpNotFound();
@@ -75,12 +75,12 @@ namespace SwiftPM.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "ProjectId,ProjectName,ProjectCode,CreationDate,ProjectDescription,PriorityLevel")] Project project)
+        public async Task<ActionResult> Edit(Project project)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(project).State = EntityState.Modified;
-                await db.SaveChangesAsync();
+                _db.Entry(project).State = EntityState.Modified;
+                await _db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
             return View(project);
@@ -93,7 +93,7 @@ namespace SwiftPM.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Project project = await db.Projects.FindAsync(id);
+            Project project = await _db.Projects.FindAsync(id);
             if (project == null)
             {
                 return HttpNotFound();
@@ -106,9 +106,9 @@ namespace SwiftPM.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            Project project = await db.Projects.FindAsync(id);
-            db.Projects.Remove(project);
-            await db.SaveChangesAsync();
+            Project project = await _db.Projects.FindAsync(id);
+            if (project != null) _db.Projects.Remove(project);
+            await _db.SaveChangesAsync();
             return RedirectToAction("Index");
         }
 
@@ -116,7 +116,7 @@ namespace SwiftPM.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                _db.Dispose();
             }
             base.Dispose(disposing);
         }

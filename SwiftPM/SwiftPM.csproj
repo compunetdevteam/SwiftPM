@@ -207,6 +207,15 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201801151347197_InitialCreate.cs" />
+    <Compile Include="Migrations\201801151347197_InitialCreate.Designer.cs">
+      <DependentUpon>201801151347197_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201801151351414_basicModel.cs" />
+    <Compile Include="Migrations\201801151351414_basicModel.Designer.cs">
+      <DependentUpon>201801151351414_basicModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -302,6 +311,14 @@
       <Project>{8a074089-4026-439a-b6c6-7e470a816973}</Project>
       <Name>SwiftPMModel</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201801151347197_InitialCreate.resx">
+      <DependentUpon>201801151347197_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801151351414_basicModel.resx">
+      <DependentUpon>201801151351414_basicModel.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

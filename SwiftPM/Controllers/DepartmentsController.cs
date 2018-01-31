@@ -9,12 +9,12 @@ namespace SwiftPM.Controllers
 {
     public class DepartmentsController : Controller
     {
-        private SwiftPmDb db = new SwiftPmDb();
+        private readonly SwiftPmDb _db = new SwiftPmDb();
 
         // GET: Departments
         public async Task<ActionResult> Index()
         {
-            return View(await db.Departments.ToListAsync());
+            return View(await _db.Departments.ToListAsync());
         }
 
         // GET: Departments/Details/5
@@ -24,7 +24,7 @@ namespace SwiftPM.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Department department = await db.Departments.FindAsync(id);
+            Department department = await _db.Departments.FindAsync(id);
             if (department == null)
             {
                 return HttpNotFound();
@@ -43,12 +43,12 @@ namespace SwiftPM.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "DepartmentId,DeptName,DeptCode,DepartmentHead")] Department department)
+        public async Task<ActionResult> Create(Department department)
         {
             if (ModelState.IsValid)
             {
-                db.Departments.Add(department);
-                await db.SaveChangesAsync();
+                _db.Departments.Add(department);
+                await _db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
 
@@ -62,7 +62,7 @@ namespace SwiftPM.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Department department = await db.Departments.FindAsync(id);
+            Department department = await _db.Departments.FindAsync(id);
             if (department == null)
             {
                 return HttpNotFound();
@@ -75,12 +75,12 @@ namespace SwiftPM.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "DepartmentId,DeptName,DeptCode,DepartmentHead")] Department department)
+        public async Task<ActionResult> Edit(Department department)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(department).State = EntityState.Modified;
-                await db.SaveChangesAsync();
+                _db.Entry(department).State = EntityState.Modified;
+                await _db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
             return View(department);
@@ -93,7 +93,7 @@ namespace SwiftPM.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Department department = await db.Departments.FindAsync(id);
+            Department department = await _db.Departments.FindAsync(id);
             if (department == null)
             {
                 return HttpNotFound();
@@ -106,9 +106,9 @@ namespace SwiftPM.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            Department department = await db.Departments.FindAsync(id);
-            db.Departments.Remove(department);
-            await db.SaveChangesAsync();
+            Department department = await _db.Departments.FindAsync(id);
+            if (department != null) _db.Departments.Remove(department);
+            await _db.SaveChangesAsync();
             return RedirectToAction("Index");
         }
 
@@ -116,7 +116,7 @@ namespace SwiftPM.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                _db.Dispose();
             }
             base.Dispose(disposing);
         }
