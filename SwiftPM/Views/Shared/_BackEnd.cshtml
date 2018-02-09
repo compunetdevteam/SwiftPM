@@ -1,0 +1,118 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="description" content="A fully featured admin theme which can be used to build CRM, CMS, etc.">
+    <meta name="author" content="Coderthemes">
+    <link rel="shortcut icon" href="assets/images/favicon_1.ico">
+    <title>SwiftPM- Enhancing Project Management</title>
+
+    <link href="~/ThemeBack/plugins/switchery/switchery.min.css" rel="stylesheet" />
+    <link href="~/ThemeBack/plugins/jquery-circliful/css/jquery.circliful.css" rel="stylesheet" type="text/css" />
+    <link href="~/ThemeBack/green/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="~/ThemeBack/green/assets/css/icons.css" rel="stylesheet" type="text/css">
+    <link href="~/ThemeBack/green/assets/css/style.css" rel="stylesheet" type="text/css">
+    <script src="~/ThemeBack/green/assets/js/modernizr.min.js"></script>
+
+    </head>
+
+<body class="fixed-left">
+
+    <!-- Begin page -->
+    <div id="wrapper">
+        <!-- Top Bar Start -->
+
+        @Html.Partial("~/Views/Shared/BackEndPartials/_TopBar.cshtml")
+        <!-- Top Bar End -->
+        <!-- =====Left Sidebar Start ===== -->
+
+        @Html.Partial("~/Views/Shared/BackEndPartials/_LeftSideBar.cshtml")
+
+        <!-- Left Sidebar End -->
+        <!-- Render Body Here (Right Content) -->
+
+        @RenderBody()
+
+        <!-- End Right content here -->
+        <!-- Right Sidebar -->
+        @Html.Partial("~/Views/Shared/BackEndPartials/_RightSideBar.cshtml")
+        <!-- End Of Right-bar -->
+    </div>
+
+    <!-- END of Total Wrapper -->
+
+    <footer class="footer">
+        @DateTime.Now.Year © SwiftPM <span class="hide-phone">Enhancing Project Management</span>
+    </footer>
+    </div>
+
+
+    <script>
+        var resizefunc = [];
+    </script>
+    <!-- Plugins  -->
+    <script src="~/ThemeBack/green/assets/js/jquery.min.js"></script>
+    <script src="~/ThemeBack/green/assets/js/popper.min.js"></script><!-- Popper for Bootstrap -->
+    <script src="~/ThemeBack/green/assets/js/bootstrap.min.js"></script>
+    <script src="~/ThemeBack/green/assets/js/detect.js"></script>
+    <script src="~/ThemeBack/green/assets/js/fastclick.js"></script>
+    <script src="~/ThemeBack/green/assets/js/jquery.slimscroll.js"></script>
+    <script src="~/ThemeBack/green/assets/js/jquery.blockUI.js"></script>
+    <script src="~/ThemeBack/green/assets/js/waves.js"></script>
+    <script src="~/ThemeBack/green/assets/js/wow.min.js"></script>
+    <script src="~/ThemeBack/green/assets/js/jquery.nicescroll.js"></script>
+    <script src="~/ThemeBack/green/assets/js/jquery.scrollTo.min.js"></script>
+    <script src="~/ThemeBack/plugins/switchery/switchery.min.js"></script>
+    <!-- Counter Up  -->
+
+    <script src="~/ThemeBack/plugins/waypoints/lib/jquery.waypoints.min.js"></script>
+    <script src="~ThemeBack/plugins/counterup/jquery.counterup.min.js"></script>
+    <!-- circliful Chart -->
+    <script src="~/ThemeBack/plugins/jquery-circliful/js/jquery.circliful.min.js"></script>
+    <script src="~/ThemeBack/plugins/jquery-sparkline/jquery.sparkline.min.js"></script>
+    <!-- skycons -->
+    <script src="~/ThemeBack/plugins/skyicons/skycons.min.js" type="text/javascript"></script>
+    <!-- Page js  -->
+    <script src="~/ThemeBack/green/assets/pages/jquery.dashboard.js"></script>
+    <!-- Custom main Js -->
+    <script src="~/ThemeBack/green/assets/js/jquery.core.js"></script>
+    <script src="~/ThemeBack/green/assets/js/jquery.app.js"></script>
+
+    <script src="~/ThemeBack/plugins/datatables/jquery.dataTables.min.js"></script>
+
+
+    <script type="text/javascript">
+        jQuery(document).ready(function ($) {
+            $('.counter').counterUp({
+                delay: 100,
+                time: 1200
+            });
+            $('.circliful-chart').circliful();
+        });
+
+        // BEGIN SVG WEATHER ICON
+        if (typeof Skycons !== 'undefined') {
+            var icons = new Skycons(
+                { "color": "#00b19d" },
+                { "resizeClear": true }
+            ),
+                list = [
+                    "clear-day", "clear-night", "partly-cloudy-day",
+                    "partly-cloudy-night", "cloudy", "rain", "sleet", "snow", "wind",
+                    "fog"
+                ],
+                i;
+
+            for (i = list.length; i--;)
+                icons.set(list[i], list[i]);
+            icons.play();
+        };
+
+    </script>
+
+
+</body>
+
+<!-- Mirrored from coderthemes.com/minton/green/index.html by HTTrack Website Copier/3.x [XR&CO'2010], Wed, 31 Jan 2018 22:31:23 GMT -->
+</html>

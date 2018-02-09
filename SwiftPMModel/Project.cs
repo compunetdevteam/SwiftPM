@@ -9,7 +9,9 @@ namespace SwiftPMModel
         public int ProjectId { get; set; }
         public string ProjectName { get; set; }
         public string ProjectCode { get; set; }
-        public DateTime CreationDate { get; set; }
+
+        [DataType(DataType.DateTime)]
+        public DateTime CreationDate { get; set; } = DateTime.Now;
         public string ProjectDescription { get; set; }
 
         [Range(1, 5, ErrorMessage = "Priority Must be between 1 to 5")]

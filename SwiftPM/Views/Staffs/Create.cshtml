@@ -1,0 +1,184 @@
+﻿@model SwiftPM.Models.ViewModels.CreateStaffVm
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Staff Management</h2>
+
+
+
+<div class="content-page">
+    <!-- Start content -->
+    <div class="content">
+        <div class="container-fluid">
+            <!-- Page-Title -->
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="page-title-box">
+                        <h4 class="page-title">Create a Staff</h4>
+                        <ol class="breadcrumb float-right">
+                            <li class="breadcrumb-item"><a href="#">Home</a></li>
+                            <li class="breadcrumb-item"><a href="#">Staffs</a></li>
+                            <li class="breadcrumb-item active">Create Staff</li>
+                        </ol>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="card-box">
+                        <h4 class="header-title m-t-0">Staff Form</h4>
+                        <p class="text-muted font-14 m-b-20">
+                           Create a staff of your oganization and assign department when done.
+                        </p>
+                        <form action="@Url.Action("Create","Staffs")" method="post">
+                            @Html.AntiForgeryToken()
+                            @Html.ValidationSummary()
+
+
+                            <div class="form-group">
+                                <label for="userName">Title<span class="text-danger">*</span></label>
+
+                                @Html.EnumDropDownListFor(m => m.Title, new { @class = "form-control", placeholder = "Select_Title", id = "TitleList" })
+
+                                @Html.ValidationMessageFor(m => m.Title, null, new { @class = "text-danger" })
+
+                                @Html.HiddenFor(m => m.Title)
+
+                            </div>
+
+
+                            <div class="form-group">
+                                <label for="userName">First Name<span class="text-danger">*</span></label>
+
+                                @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", placeholder = "Enter First name", id = "userName" })
+
+                                @Html.ValidationMessageFor(m => m.FirstName, null, new { @class = "text-danger" })
+                                @*<input type="text" name="nick" parsley-trigger="change" required
+            placeholder="Enter user name" class="form-control" id="userName">*@
+                            </div>
+                            <div class="form-group">
+                                <label for="emailAddress">Last Name<span class="text-danger">*</span></label>
+
+                                @Html.TextBoxFor(m => m.LastName, new { @class = "form-control", placeholder = "Enter Last Name", id = "Email" })
+
+                                @Html.ValidationMessageFor(m => m.LastName, null, new { @class = "text-danger" })
+                            </div>
+
+                            <div class="form-group">
+                                <label for="userName">Marital Status<span class="text-danger">*</span></label>
+
+                                @Html.EnumDropDownListFor(m => m.MaritalStatus, new { @class = "form-control", placeholder = "Select Marital Status", id = "MaritalStatusList" })
+
+                                @Html.ValidationMessageFor(m => m.MaritalStatus, null, new { @class = "text-danger" })
+
+                                @Html.HiddenFor(m => m.MaritalStatus)
+                            </div>
+
+                            <div class="form-group">
+                                <label for="pass1">Gender <span class="text-danger">*</span></label>
+                                @*<input id="pass1" type="password" placeholder="Password" required
+                                class="form-control">*@
+
+                                @Html.EnumDropDownListFor(m => m.Gender, new { @class = "form-control",     placeholder = "Enter First name", id = "GenderList" })
+
+                                @Html.ValidationMessageFor(m => m.Gender, null, new { @class = "text-       danger" })
+
+                                @Html.HiddenFor(m=>m.Gender)
+                            </div>
+
+                            <div class="form-group">
+                                <label for="passWord2">Phone Number <span class="text-danger">*</span></label>
+                                @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control", placeholder = "input Phone Number", id = "PhoneNumber" })
+
+                                @Html.ValidationMessageFor(m => m.PhoneNumber, null, new { @class = "text-danger" })
+                            </div>
+
+                            <div class="form-group text-right m-b-0">
+                                <button class="btn btn-primary waves-effect waves-light" type="submit">
+                                    Submit
+                                </button>
+                                <button type="reset" class="btn btn-secondary waves-effect m-l-5">
+                                    Cancel
+                                </button>
+                            </div>
+                        </form>
+
+                        <!--End of Staff Creation Form-->
+                    </div> <!-- end card-box -->
+                </div>
+                <!-- end col -->
+                @*<div class="col-lg-6">
+                    <div class="card-box">
+                        <h4 class="header-title m-t-0">Horizontal Form</h4>
+                        <p class="text-muted font-14 m-b-20">
+                            Parsley is a javascript form validation library. It helps you provide your users with feedback on their form submission before sending it to your server.
+                        </p>
+                        <form role="form">
+                            <div class="form-group row">
+                                <label for="inputEmail3" class="col-4 col-form-label">Email<span class="text-danger">*</span></label>
+                                <div class="col-7">
+                                    <input type="email" required parsley-type="email" class="form-control"
+                                           id="inputEmail3" placeholder="Email">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="hori-pass1" class="col-4 col-form-label">Password<span class="text-danger">*</span></label>
+                                <div class="col-7">
+                                    <input id="hori-pass1" type="password" placeholder="Password" required
+                                           class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="hori-pass2" class="col-4 col-form-label">
+                                    Confirm Password
+                                    <span class="text-danger">*</span>
+                                </label>
+                                <div class="col-7">
+                                    <input data-parsley-equalto="#hori-pass1" type="password" required
+                                           placeholder="Password" class="form-control" id="hori-pass2">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="webSite" class="col-4 col-form-label">Web Site<span class="text-danger">*</span></label>
+                                <div class="col-7">
+                                    <input type="url" required parsley-type="url" class="form-control"
+                                           id="webSite" placeholder="URL">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-8 offset-4">
+                                    <div class="checkbox checkbox-purple">
+                                        <input id="checkbox6" type="checkbox">
+                                        <label for="checkbox6">
+                                            Remember me
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-8 offset-4">
+                                    <button type="submit" class="btn btn-primary waves-effect waves-light">
+                                        Register
+                                    </button>
+                                    <button type="reset"
+                                            class="btn btn-secondary waves-effect m-l-5">
+                                        Cancel
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                        <div class="visible-lg" style="height: 79px;"></div>
+                    </div>
+                </div>*@ <!-- end col -->
+            </div>
+            <!-- end row -->
+           
+        </div>
+        <!-- end container -->
+    </div>
+    <!-- end content -->
+ 

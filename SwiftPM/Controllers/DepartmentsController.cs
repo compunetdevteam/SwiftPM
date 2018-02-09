@@ -1,20 +1,34 @@
-﻿using SwiftPM.Models;
-using SwiftPMModel;
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
 using System.Data.Entity;
-using System.Net;
+using System.Linq;
 using System.Threading.Tasks;
+using System.Net;
+using System.Web;
 using System.Web.Mvc;
+using SwiftPM.Models;
+using SwiftPMModel;
+using SwiftPM.Models.ViewModels;
 
 namespace SwiftPM.Controllers
 {
-    public class DepartmentsController : Controller
+   //[Authorize]
+    public class DepartmentsController : ParentController
     {
-        private readonly SwiftPmDb _db = new SwiftPmDb();
+       // private SwiftPmDb db = new SwiftPmDb();
 
         // GET: Departments
         public async Task<ActionResult> Index()
         {
-            return View(await _db.Departments.ToListAsync());
+            return View(await db.Departments.ToListAsync());
+        }
+
+        public async Task<ActionResult> GetIndex()
+        {
+            var data = await db.Departments.Select(x => new { x.DeptCode, x.DeptName, x.DepartmentHead})
+               .ToListAsync();
+            return Json( new { data = data },  JsonRequestBehavior.AllowGet);
         }
 
         // GET: Departments/Details/5
@@ -24,7 +38,7 @@ namespace SwiftPM.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Department department = await _db.Departments.FindAsync(id);
+            Department department = await db.Departments.FindAsync(id);
             if (department == null)
             {
                 return HttpNotFound();
@@ -33,6 +47,7 @@ namespace SwiftPM.Controllers
         }
 
         // GET: Departments/Create
+        //[Authorize(Roles = "AppAdmin")]
         public ActionResult Create()
         {
             return View();
@@ -43,16 +58,25 @@ namespace SwiftPM.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(Department department)
+        public async Task<ActionResult> Create(Department dept)
         {
             if (ModelState.IsValid)
             {
-                _db.Departments.Add(department);
-                await _db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                try
+                {
+                    db.Departments.Add(dept);
+                    await db.SaveChangesAsync();
+                    return RedirectToAction("Index");
+                }
+                catch (Exception ex)
+                {
+
+                    return View(ex);
+                }
+               
             }
 
-            return View(department);
+            return View(dept);
         }
 
         // GET: Departments/Edit/5
@@ -62,7 +86,7 @@ namespace SwiftPM.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Department department = await _db.Departments.FindAsync(id);
+            Department department = await db.Departments.FindAsync(id);
             if (department == null)
             {
                 return HttpNotFound();
@@ -79,8 +103,8 @@ namespace SwiftPM.Controllers
         {
             if (ModelState.IsValid)
             {
-                _db.Entry(department).State = EntityState.Modified;
-                await _db.SaveChangesAsync();
+                db.Entry(department).State = EntityState.Modified;
+                await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
             return View(department);
@@ -93,7 +117,7 @@ namespace SwiftPM.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Department department = await _db.Departments.FindAsync(id);
+            Department department = await db.Departments.FindAsync(id);
             if (department == null)
             {
                 return HttpNotFound();
@@ -106,9 +130,9 @@ namespace SwiftPM.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            Department department = await _db.Departments.FindAsync(id);
-            if (department != null) _db.Departments.Remove(department);
-            await _db.SaveChangesAsync();
+            Department department = await db.Departments.FindAsync(id);
+            db.Departments.Remove(department);
+            await db.SaveChangesAsync();
             return RedirectToAction("Index");
         }
 
@@ -116,7 +140,7 @@ namespace SwiftPM.Controllers
         {
             if (disposing)
             {
-                _db.Dispose();
+                db.Dispose();
             }
             base.Dispose(disposing);
         }

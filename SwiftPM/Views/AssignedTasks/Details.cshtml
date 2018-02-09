@@ -1,0 +1,90 @@
+﻿@model SwiftPMModel.AssignedTask
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>AssignedTask</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Staff.FirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Staff.FirstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TaskActivity.ActivityName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TaskActivity.ActivityName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AssignedDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AssignedDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DueDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DueDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TaskStatus)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TaskStatus)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CompletedDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CompletedDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ActivityState)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ActivityState)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AssignedBy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AssignedBy)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ApprovedBy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ApprovedBy)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.AssignedTaskId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

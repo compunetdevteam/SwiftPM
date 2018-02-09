@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Data.Entity;
 using System.Globalization;
 using System.Linq;
+using System.Net;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
@@ -9,11 +11,12 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using SwiftPM.Models;
+using SwiftPMModel;
 
 namespace SwiftPM.Controllers
 {
     [Authorize]
-    public class AccountController : Controller
+    public class AccountController : ParentController
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
@@ -79,14 +82,14 @@ namespace SwiftPM.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
+                    return RedirectToAction("Dashboard","Home");
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
                     return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
                 case SignInStatus.Failure:
                 default:
-                    ModelState.AddModelError("", "Invalid login attempt.");
+                    ModelState.AddModelError("", "Invalid login attempt. Verify Email and Password and Try again");
                     return View(model);
             }
         }
@@ -133,45 +136,130 @@ namespace SwiftPM.Controllers
                     return View(model);
             }
         }
-
+        
         //
         // GET: /Account/Register
         [AllowAnonymous]
-        public ActionResult Register()
+        public ActionResult Register(string message )
         {
+            //ViewBag.HtmlStr = "This is the data <br/> <button class='text-danger'> This is the data</button> ";
+            ViewBag.Message = "";
             return View();
         }
 
-        //
+        [AllowAnonymous]
+        [HttpPost]
+        public ActionResult Register(RegisterStaffViewModel rsvm)
+        {
+            var staffExist = db.Staffs.AsNoTracking().Where(s => s.StaffCode == rsvm.StaffCode);
+            if (staffExist.Any())
+            {
+                string id = staffExist.FirstOrDefault().StaffId;
+                return RedirectToAction("StaffEdit", new { id = id });
+            }
+            
+            ViewBag.Message = "Your donot have any account with this organization , Contact the admin";
+            return View();
+        }
+        // Registers the staff details just created by the user
+
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<ActionResult> StaffEdit(string id )
+        {
+            if (id == null)
+            {
+                ViewBag.Message = "You dont have an account with the company ";
+                return View("Register", new {registered =false });
+            }
+
+            //var id = db.Staffs.AsNoTracking().Where(s => s.StaffCode == id).FirstOrDefault().StaffId;
+            Staff staff = await db.Staffs.FindAsync(id);
+           
+            if (staff == null)
+            {
+                ViewBag.Message = "Your account has not been created , meet with the admin";
+                return View();
+            }
+            return View(staff);
+        }
+        
         // POST: /Account/Register
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(RegisterViewModel model)
+        public async Task<ActionResult> StaffEdit(Staff model)
         {
+            //Random random = new Random();
+            //string patientCode = (model.FirstName + random.Next(1, 99999)).ToString();
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
-                var result = await UserManager.CreateAsync(user, model.Password);
-                if (result.Succeeded)
+               
+                if ( !(db.Staffs.Any(s=>s.Email.Equals(model.Email))))
                 {
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
-                    // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
-                    // Send an email with this link
-                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                    Staff staff = db.Staffs.FirstOrDefault(s => s.StaffCode.Equals(model.StaffCode));
+                  try
+                    {
 
-                    return RedirectToAction("Index", "Home");
+                        var user = new ApplicationUser
+                        {
+                            Id = staff.StaffId,
+                            UserName = model.Email,
+                            Email = model.Email,
+                            FirstName = model.FirstName,
+                            MiddleName = model.MiddleName,
+                            LastName = model.LastName,
+
+                        };
+                        var result = await UserManager.CreateAsync(user, model.Password);
+
+                        if (result.Succeeded)
+                        {                                     
+                            //staff.StaffId = user.Id;
+                                                              
+                            db.Entry(staff).State = EntityState.Modified;
+                            await db.SaveChangesAsync();
+
+                            await this.UserManager.AddToRoleAsync(user.Id, "Staff");
+
+                            // For more information on how to enable account confirmation and password reset please visit
+                            // http://go.microsoft.com/fwlink/?LinkID=320771
+                            // Send an email with this link
+                            // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                            // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                            // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>")
+
+                            // await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: true);
+
+                            ViewBag.Message = "Registration Successful Sign In Now, To Continue";
+                           // ViewBag.HtmlStr = "This is the data <br/> <button class='text-success'> This is the data</button> ";
+                            return View();
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        ViewBag.Message = "Registration was NOT Successful, Try again " + "" +ex.ToString();
+                        return View(model);
+                    }
                 }
-                AddErrors(result);
+
+                else if(db.Staffs.Any(s => s.Email.Equals(model.Email)))
+                {
+                    ViewBag.Message = "This Email " + ": " + model.Email + " " + " already exist, Login or use another email address";
+                    return View();
+                }
             }
 
-            // If we got this far, something failed, redisplay form
-            return View(model);
+            if(!ModelState.IsValid)
+            {
+                ViewBag.Message = "Model State not valid ";
+                return View();
+            }
+            ViewBag.Message = "Unknown Error";
+            return View();
         }
 
+        
         //
         // GET: /Account/ConfirmEmail
         [AllowAnonymous]

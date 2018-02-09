@@ -33,6 +33,13 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Drawing.Design" />
+    <Reference Include="System.IdentityModel" />
+    <Reference Include="System.Net" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -42,7 +49,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssignedTask.cs" />
+    <Compile Include="AssignStaffToDept.cs" />
     <Compile Include="Department.cs" />
+    <Compile Include="DropDown.cs" />
+    <Compile Include="Person.cs" />
+    <Compile Include="System\HttpPostedFileBase.cs" />
     <Compile Include="ModuleTask.cs" />
     <Compile Include="ModuleTaskIssue.cs" />
     <Compile Include="Project.cs" />
@@ -51,6 +62,8 @@
     <Compile Include="Staff.cs" />
     <Compile Include="TaskActivity.cs" />
     <Compile Include="Unit.cs" />
+    <Compile Include="ValidateFileAttribute.cs" />
+    <Compile Include="ValidatePictureAttribute.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="SwiftProjectModel.csproj" />

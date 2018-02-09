@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SwiftPMModel
 {
@@ -12,5 +13,6 @@ namespace SwiftPMModel
         public DateTime? DueDate { get; set; }
         public virtual ModuleTask ModuleTask { get; set; }
         public virtual ICollection<AssignedTask> AssignedTask { get; set; }
+
     }
 }

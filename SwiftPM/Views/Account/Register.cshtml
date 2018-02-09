@@ -1,41 +1,126 @@
-﻿@model SwiftPM.Models.RegisterViewModel
+﻿@using SwiftPM.Models
+@model RegisterStaffViewModel
+
 @{
-    ViewBag.Title = "Register";
+    ViewBag.Title = "Sign Up";
+    Layout = "~/Views/Shared/_FrontEnd.cshtml";
 }
 
-<h2>@ViewBag.Title.</h2>
+    <script type="application/x-javascript">
+        addEventListener("load", function () {
+            setTimeout(hideURLbar, 0);
+        }, false);
 
-@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-{
-    @Html.AntiForgeryToken()
-    <h4>Create a new account.</h4>
-    <hr />
-    @Html.ValidationSummary("", new { @class = "text-danger" })
-    <div class="form-group">
-        @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
-        </div>
-    </div>
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" class="btn btn-default" value="Register" />
-        </div>
-    </div>
-}
+        function hideURLbar() {
+            window.scrollTo(0, 1);
+        }
+    </script>
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+    <!-- header -->
+    
+    <!-- banner -->
+    <div class="inner_page_agile">
+        <h3>SignUp </h3>
+        @if (@ViewBag.Message != null)
+
+        {
+        <h2>@ViewBag.Message</h2>
+
+        }
+        
+        
+
+    </div>
+    <!--//banner -->
+    <!--/w3_short-->
+    <div class="services-breadcrumb_w3layouts">
+        <div class="inner_breadcrumb">
+
+            <ul class="short_w3ls" _w3ls>
+                <li><a href="index.html">Home</a><span>|</span></li>
+                <li>SignUp</li>
+            </ul>
+        </div>
+    </div>
+    <!--//w3_short-->
+    <!-- /inner_content -->
+    <div class="inner_content_info_agileits">
+        <div class="container">
+            
+            <div class="inner_sec_grids_info_w3ls" style="margin-top:0px; padding-top:0px">
+                <div class="signin-form">
+                    <div class="login-form-rec">
+                        <form action="@Url.Action("Register","Account" )" method="post">
+                            <input type="text" name="StaffCode" placeholder="Staff Code" required="">
+                           
+                            <br />
+                            @*<select id="country13" onchange="change_country(this.value)" class="frm-field required">
+                                <option value="null">Qualification</option>
+                                <option value="">Bsc</option>
+                                <option value="">BTech</option>
+                                <option value="">Mca</option>
+                                <option value="">BCA</option>
+                                <option value="">Diploma</option>
+                                <option value="">Other</option>
+                            </select>*@
+                            <input type="submit" value="Register">
+                        </form>
+                    </div>
+                    <p class="reg"><a href="#"> By clicking register, I agree to your terms</a></p>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    
+    <!-- //footer -->
+
+    <a href="#home" class="scroll" id="toTop" style="display: block;"> <span id="toTopHover" style="opacity: 1;"> </span></a>
+    <!-- js -->
+    <script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
+    <!-- password-script -->
+    <script type="text/javascript">
+        window.onload = function () {
+            document.getElementById("password1").onchange = validatePassword;
+            document.getElementById("password2").onchange = validatePassword;
+        }
+
+
+        function validatePassword() {
+            var pass2 = document.getElementById("password2").value;
+            var pass1 = document.getElementById("password1").value;
+            if (pass1 != pass2)
+                document.getElementById("password2").setCustomValidity("Passwords Don't Match");
+            else
+                document.getElementById("password2").setCustomValidity('');
+            //empty string means no validation error
+        }
+    </script>
+    <!-- //password-script -->
+
+<script type="text/javascript" src="js/bootstrap.js"></script>
+
+<a href="#home" class="scroll" id="toTop" style="display: block;"> <span id="toTopHover" style="opacity: 1;"> </span></a>
+<!-- js -->
+<script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
+<!-- password-script -->
+@*<script type="text/javascript">
+    window.onload = function () {
+        document.getElementById("password1").onchange = validatePassword;
+        document.getElementById("password2").onchange = validatePassword;
+    }
+
+    function validatePassword() {
+        var pass2 = document.getElementById("password2").value;
+        var pass1 = document.getElementById("password1").value;
+        if (pass1 != pass2)
+            document.getElementById("password2").setCustomValidity("Passwords Don't Match");
+        else
+            document.getElementById("password2").setCustomValidity('');
+        //empty string means no validation error
+    }
+</script>*@
+<!-- //password-script -->
+
+<script type="text/javascript" src="js/bootstrap.js"></script>

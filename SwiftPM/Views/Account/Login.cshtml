@@ -1,63 +1,93 @@
 ﻿@using SwiftPM.Models
 @model LoginViewModel
 @{
+    Layout = "~/Views/Shared/_FrontEnd.cshtml";
     ViewBag.Title = "Log in";
 }
 
-<h2>@ViewBag.Title.</h2>
-<div class="row">
-    <div class="col-md-8">
-        <section id="loginForm">
-            @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-            {
-                @Html.AntiForgeryToken()
-                <h4>Use a local account to log in.</h4>
-                <hr />
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                <div class="form-group">
-                    @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
-                    <div class="col-md-10">
-                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                <div class="form-group">
-                    @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
-                    <div class="col-md-10">
-                        @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <div class="checkbox">
-                            @Html.CheckBoxFor(m => m.RememberMe)
-                            @Html.LabelFor(m => m.RememberMe)
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Log in" class="btn btn-default" />
-                    </div>
-                </div>
-                <p>
-                    @Html.ActionLink("Register as a new user", "Register")
-                </p>
-                @* Enable this once you have account confirmation enabled for password reset functionality
-                    <p>
-                        @Html.ActionLink("Forgot your password?", "ForgotPassword")
-                    </p>*@
-            }
-        </section>
-    </div>
-    <div class="col-md-4">
-        <section id="socialLoginForm">
-            @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
-        </section>
-    </div>
-</div>
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+    <!-- banner -->
+    <div class="inner_page_agile">
+        <h3>Login</h3>
+        <p> @ViewBag.Message</p>
+
+    </div>
+    <!--//banner -->
+    <!--/w3_short-->
+    <div class="services-breadcrumb_w3layouts">
+        <div class="inner_breadcrumb">
+
+            <ul class="short_w3ls" _w3ls>
+                <li><a href="@Url.Action("Index","Home")">Home</a><span>|</span></li>
+                <li>Login</li>
+            </ul>
+        </div>
+    </div>
+    <!--//w3_short-->
+    <!-- /inner_content -->
+    <div class="inner_content_info_agileits">
+        <div class="container" style="padding-top:0px; margin-top:0px">
+            
+            <div class="inner_sec_grids_info_w3ls" style="padding-top:0px; margin-top:0px">
+                <div class="signin-form">
+                    <div class="login-form-rec">
+                        <form action="@Url.Action("Login","Account")" method="post">
+
+                            @Html.AntiForgeryToken()
+                            @Html.ValidationSummary()
+                            <input type="email" name="Email" placeholder="E-mail" required=""> <br />
+                            <input type="password" name="Password" placeholder="Password" required="">
+
+                            @Html.CheckBoxFor(m=>m.RememberMe, new { @class = "", Style="float:left"})
+
+                            <span> @Html.DisplayNameFor(m=>m.RememberMe)</span>
+                           
+
+                              <input type="submit" value="Login">
+                           
+                        </form>
+                    </div>
+                    <div class="login-social-grids">
+                        <ul>
+                            <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                            <li><a href="#"><i class="fa fa-rss"></i></a></li>
+                        </ul>
+                    </div>
+                    <p><a href="@Url.Action("Register","Account")"> Don't have an account?</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    
+    <!-- //footer -->
+
+    <a href="#home" class="scroll" id="toTop" style="display: block;"> <span id="toTopHover" style="opacity: 1;"> </span></a>
+    <!-- js -->
+    <script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
+    <!-- password-script -->
+    <script type="text/javascript">
+		window.onload = function () {
+			document.getElementById("password1").onchange = validatePassword;
+			document.getElementById("password2").onchange = validatePassword;
+		}
+
+		function validatePassword() {
+			var pass2 = document.getElementById("password2").value;
+			var pass1 = document.getElementById("password1").value;
+			if (pass1 != pass2)
+				document.getElementById("password2").setCustomValidity("Passwords Don't Match");
+			else
+				document.getElementById("password2").setCustomValidity('');
+			//empty string means no validation error
+		}
+    </script>
+    <!-- //password-script -->
+    <script type="text/javascript" src="js/bootstrap.js"></script>
+  @*<div class="col-md-4">
+    <section id="socialLoginForm">
+        @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
+    </section>
+</div>*@
+

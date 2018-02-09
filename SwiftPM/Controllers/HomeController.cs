@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace SwiftPM.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : ParentController
     {
         public ActionResult Index()
         {
@@ -19,6 +19,10 @@ namespace SwiftPM.Controllers
 
             return View();
         }
+        public ActionResult DashBoard()
+        {
+            return View();
+        }
 
         public ActionResult Contact()
         {
@@ -26,5 +30,10 @@ namespace SwiftPM.Controllers
 
             return View();
         }
+        public ActionResult TestPage()
+        {
+            return View(db.Staffs.ToList());
+        }
+
     }
 }

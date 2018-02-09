@@ -1,0 +1,81 @@
+﻿@model IEnumerable<SwiftPMModel.AssignedTask>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Staff.FirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TaskActivity.ActivityName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AssignedDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DueDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TaskStatus)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CompletedDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ActivityState)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AssignedBy)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ApprovedBy)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Staff.FirstName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TaskActivity.ActivityName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AssignedDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DueDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TaskStatus)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CompletedDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ActivityState)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AssignedBy)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ApprovedBy)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.AssignedTaskId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.AssignedTaskId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.AssignedTaskId })
+        </td>
+    </tr>
+}
+
+</table>

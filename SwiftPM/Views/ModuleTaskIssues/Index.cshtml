@@ -1,0 +1,51 @@
+﻿@model IEnumerable<SwiftPMModel.ModuleTaskIssue>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ModuleTask.TaskName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IssueType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IssueDescription)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateSubmitted)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ModuleTask.TaskName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IssueType)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IssueDescription)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateSubmitted)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ModuleTaskIssueId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ModuleTaskIssueId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ModuleTaskIssueId })
+        </td>
+    </tr>
+}
+
+</table>

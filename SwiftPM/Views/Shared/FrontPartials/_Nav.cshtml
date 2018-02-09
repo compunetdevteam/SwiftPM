@@ -1,0 +1,72 @@
+﻿<!--Top Level Navigation-->
+
+
+<div class="header" id="home">
+    <div class="content white agile-info">
+        <nav class="navbar navbar-default" role="navigation">
+
+            <div >
+                <div class="row container">
+                    <div class="col-md-4 navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+
+                        <a class="navbar-brand" href="#">
+                            <h1 style="float:left; text-transform:capitalize"><span class="fa fa-signal" aria-hidden="true" style="float:left; text-transform:capitalize" ></span> SwiftPm  <label style="font-size:12.5px"></label></h1>
+                        </a>
+                    </div>
+                    <!--/.navbar-header-->
+                    <div class="col-md-offset-10 navbar-collapse" id="bs-example-navbar-collapse-1" >
+                        <nav class="link-effect-2" id="link-effect-2" style="float:right">
+                            <ul class="nav navbar-nav">
+                                <li class="active">
+                                    <a href="@Url.Action("Index","Home")" class="effect-3">Home</a>
+                                </li>
+                                <li class="dropdown">
+                                    <a href="#" id="keyFeatures" onmouseover="ShowSubMenu" class="dropdown-toggle effect-3" data-toggle="dropdown">Key Features <b class="caret"></b></a>
+                                    <ul class="dropdown-menu" id="submenu">
+                                        <li><a href="#">Staff Management</a></li>
+                                        <li class="divider"></li>
+                                        <li><a href="#">Project Status Monitory</a></li>
+                                        <li class="divider"></li>
+                                        <li><a href="#">Inventory Management</a></li>
+                                        <li class="divider"></li>
+                                        <li><a href="#">Task Assignment and Monitoring</a></li>
+                                        <li class="divider"></li>
+                                        <li><a href="#">Task Approval and Rating</a></li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="@Url.Action("About","Home")" class="dropdown-toggle effect-3" data-toggle="dropdown">About SwiftPM<b class="caret"></b></a>
+                                </li>
+
+                                <li><a href="@Url.Action("Contact","Home")" class="effect-3" title="Do you want to effective mamange your Projects">Contact Us</a></li>
+
+                                <li> <a href="@Url.Action("Login","Account")" class="effect-3">Login</a></li>
+
+                                <li>
+                                    <a href="@Url.Action("Register","Account")" class="effect-3">Sign Up</a>
+                                </li>
+
+                            </ul>
+                        </nav>
+                    </div>
+                    <!--/.navbar-collapse-->
+                    <!--/.navbar-->
+                </div>
+
+            </div>
+           
+        </nav>
+    </div>
+</div>
+
+<script>
+    function ShowSubMenu() {
+        $('#submenu').show();
+    };
+</script>

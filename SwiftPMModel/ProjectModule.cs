@@ -14,7 +14,7 @@ namespace SwiftPMModel
         public int PriorityLevel { get; set; }
 
         public double ModulePercentage { get; set; }
-        public DateTime DateAdded { get; set; }
+        public DateTime DateAdded { get; set; } = DateTime.Now;
 
         public virtual Project Project { get; set; }
         public virtual ICollection<ModuleTask> ModuleTasks { get; set; }

@@ -1,0 +1,138 @@
+﻿@model SwiftPMModel.Staff
+
+@{
+    ViewBag.Title = "Staff Signup Confirmation";
+    Layout = "~/Views/Shared/_FrontEnd.cshtml";
+}
+
+    <script type="application/x-javascript">
+        addEventListener("load", function () {
+            setTimeout(hideURLbar, 0);
+        }, false);
+
+        function hideURLbar() {
+            window.scrollTo(0, 1);
+        }
+    </script>
+
+    <!-- header -->
+    
+    <!-- banner -->
+    <div class="inner_page_agile">
+        <h3 >SignUp </h3>
+        @if (@ViewBag.Message != null)
+        {
+        <h2 style="color:red">@ViewBag.Message</h2>
+
+        }
+        else
+        {
+             <p>Use Your Staff Code</p>
+        }
+
+    </div>
+    <!--//banner -->
+    <!--/w3_short-->
+    <div class="services-breadcrumb_w3layouts">
+        <div class="inner_breadcrumb">
+
+            <ul class="short_w3ls" _w3ls>
+                <li><a href="@Url.Action("Index","Home")">Home</a><span>|</span></li>
+                <li>Complete Sign Up</li>
+            </ul>
+        </div>
+    </div>
+    <!--//w3_short-->
+    <!-- /inner_content -->
+    <div class="inner_content_info_agileits">
+        <div class="container">
+            
+            <div class="inner_sec_grids_info_w3ls" style="margin-top:0px; padding-top:0px">
+                <div class="signin-form">
+                    <div class="login-form-rec">
+                        <form action="@Url.Action("StaffEdit","Account" )" method="post">
+
+                            @Html.AntiForgeryToken()
+                            @Html.ValidationSummary()
+
+                            @Html.TextBoxFor(m => m.StaffCode, new { @class = "form-control", placeholder = "Staff Code", id = "StaffCode", Readonly = true })
+
+                            @Html.TextBoxFor(m => m.Title, new { @class = "form-control", placeholder = "Select_Title", id = "TitleList", Readonly = true })
+
+                            @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", placeholder = "First Name", id = "FirstName", Readonly = true })
+
+                            @Html.TextBoxFor(m => m.LastName, new { @class = "form-control", placeholder = "Last Name", id = "LastName", Readonly = true })
+
+                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "Email", id = "TitleList" , Required = true})
+
+
+                            @Html.TextBoxFor(m => m.Password, new { @class = "form-control", placeholder = "Enter Password", id = "password1", type= "Password", Required= true })
+
+                            <input type="password" id="password2" placeholder="Confirm Password" required=""/>
+                           
+
+                            <br />
+
+                            <input type="submit" value="SignUp">
+                        </form>
+                </div>
+                    <p class="reg"><a href="#"> By clicking register, I agree to your terms</a></p>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    
+    <!-- //footer -->
+
+    <a href="#home" class="scroll" id="toTop" style="display: block;"> <span id="toTopHover" style="opacity: 1;"> </span></a>
+    <!-- js -->
+    <script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
+    <!-- password-script -->
+    <script type="text/javascript">
+        window.onload = function () {
+            document.getElementById("password1").onchange = validatePassword;
+            document.getElementById("password2").onchange = validatePassword;
+        }
+
+
+        function validatePassword() {
+            var pass2 = document.getElementById("password2").value;
+            var pass1 = document.getElementById("password1").value;
+            if (pass1 != pass2)
+                document.getElementById("password2").setCustomValidity("Passwords Don't Match");
+            else
+                document.getElementById("password2").setCustomValidity('');
+            //empty string means no validation error
+        }
+    </script>
+    <!-- //password-script -->
+
+    <script type="text/javascript" src="js/bootstrap.js"></script>
+
+<a href="#home" class="scroll" id="toTop" style="display: block;"> <span id="toTopHover" style="opacity: 1;"> </span></a>
+<!-- js -->
+<script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
+<!-- password-script -->
+@*<script type="text/javascript">
+    window.onload = function () {
+        document.getElementById("password1").onchange = validatePassword;
+        document.getElementById("password2").onchange = validatePassword;
+    }
+
+    function validatePassword() {
+        var pass2 = document.getElementById("password2").value;
+        var pass1 = document.getElementById("password1").value;
+        if (pass1 != pass2)
+            document.getElementById("password2").setCustomValidity("Passwords Don't Match");
+        else
+            document.getElementById("password2").setCustomValidity('');
+        //empty string means no validation error
+    }
+</script>*@
+<!-- //password-script -->
+
+<script type="text/javascript" src="js/bootstrap.js"></script>
+
+      

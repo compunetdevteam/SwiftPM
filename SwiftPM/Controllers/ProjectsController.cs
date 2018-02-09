@@ -1,13 +1,14 @@
 ﻿using SwiftPM.Models;
 using SwiftPMModel;
 using System.Data.Entity;
+using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 
 namespace SwiftPM.Controllers
 {
-    public class ProjectsController : Controller
+    public class ProjectsController : ParentController
     {
         private readonly SwiftPmDb _db = new SwiftPmDb();
 
@@ -17,6 +18,14 @@ namespace SwiftPM.Controllers
             return View(await _db.Projects.ToListAsync());
         }
 
+        public async Task<ActionResult> GetProjects()
+        {
+            var data = await db.Projects.Select(x => new { x.ProjectName, x.PriorityLevel, x.CreationDate, x.ProjectDescription }).ToListAsync();
+
+            return Json(new { data = data} , JsonRequestBehavior.AllowGet);
+
+        }
+       
         // GET: Projects/Details/5
         public async Task<ActionResult> Details(int? id)
         {

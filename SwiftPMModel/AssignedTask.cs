@@ -11,6 +11,8 @@ namespace SwiftPMModel
 
         public DateTime? DueDate { get; set; }
 
+        public string TaskStatus { get; set; }
+
         public DateTime? CompletedDate
         {
             get
@@ -25,6 +27,8 @@ namespace SwiftPMModel
         }
         public string ActivityState { get; set; }
         public string AssignedBy { get; set; }
+
+        public string ApprovedBy { get; set; }
 
         public virtual Staff Staff { get; set; }
         public virtual TaskActivity TaskActivity { get; set; }
