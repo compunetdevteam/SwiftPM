@@ -12,21 +12,19 @@ using SwiftPMModel;
 
 namespace SwiftPM.Controllers
 {
-    public class UnitsController : Controller
+    public class UnitsController : ParentController
     {
-        private SwiftPmDb db = new SwiftPmDb();
-
-        // GET: Units
+       
         public async Task<ActionResult> Index()
         {
-            var units = db.Units.Include(u => u.Department);
-            return View(await units.ToListAsync());
+            var units = db.Units.ToListAsync();
+            return View(await units);
         }
 
         // Get the json result of all units in a particular department 
         public async Task<ActionResult> GetIndex(int deptId)
         {
-          var units = await db.Units.Where(x => x.DepartmentId == deptId).Select(x => new { x.UnitName, x.UnitHead, x.UnitCode }).ToListAsync();
+          var units = await db.Units.Where(x => x.DepartmentId == deptId).Select(x => new { x.Department.DeptName, x.UnitName, x.UnitHead, x.UnitCode }).ToListAsync();
 
             return Json( new { data = units }, JsonRequestBehavior.AllowGet);
         }
@@ -34,7 +32,7 @@ namespace SwiftPM.Controllers
         // Gets all Unit of the all department in the organization.
         public async Task<ActionResult> GetIndex()
         {
-            var units = await db.Units.Select(x => new { x.UnitName, x.UnitHead, x.UnitCode }).ToListAsync();
+            var units = await db.Units.Select(x => new { x.Department.DeptName, x.UnitName, x.UnitHead, x.UnitCode }).ToListAsync();
 
             return Json(new { data = units }, JsonRequestBehavior.AllowGet);
         }

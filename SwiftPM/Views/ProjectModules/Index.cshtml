@@ -4,54 +4,119 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+!-- Start right Content here -->
+<!-- ============================================================== -->
+<div class="content-page">
+    <!-- Start content -->
+    <div class="content">
+        <div class="container-fluid">
+            <!-- Page-Title -->
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="page-title-box">
+                        <h4 class="page-title">Project Modules</h4>
+                        <ol class="breadcrumb float-right">
+                            <li class="breadcrumb-item"><a href="#">SwiftPM</a></li>
+                            <li class="breadcrumb-item"><a href="#">Projects</a></li>
+                            <li class="breadcrumb-item active">Project Modules</li>
+                        </ol>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </div>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Project.ProjectName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ModuleName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PriorityLevel)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ModulePercentage)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DateAdded)
-        </th>
-        <th></th>
-    </tr>
+            <!-- Begin row -->
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Project.ProjectName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ModuleName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PriorityLevel)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ModulePercentage)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DateAdded)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ProjectModuleId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ProjectModuleId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ProjectModuleId })
-        </td>
-    </tr>
-}
+            <div class="row">
+                <div class="col-12">
+                    <div class="card-box table-responsive">
+                        <h4 class="m-t-0 header-title"><b>List Of Project Modules</b></h4>
+                        <p class="text-muted font-13 m-b-30">
+                        </p>
+                        <table id="Jdatatable" class="table table-striped table-bordered" cellspacing="0">
+                            <thead>
 
-</table>
+                                <tr>
+                                    <th>
+                                        Project Name
+                                    </th>
+                                    <th>
+                                       Module Name
+                                    </th>
+                                    <th>
+                                        Priority Level
+                                    </th>
+                                    <th>
+                                       Percentage
+                                    </th>
+                                    
+                                    <th>
+                                        Actions
+                                    </th>
+
+
+
+                                </tr>
+
+                            </thead>
+
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!-- End row -->
+            <!--End of Datatable -->
+
+
+        </div>
+        <!-- end container -->
+    </div>
+    <!-- end content -->
+    @Html.Partial("~/Views/Shared/BackEndPartials/_Footer.cshtml")
+</div>
+<!-- ============================================================== -->
+<!-- End Right content here -->
+<!-- Plugins  -->
+<script src="~/ThemeBack/plugins/datatables/dataTables.buttons.min.js"></script>
+
+<link href="~/ThemeBack/plugins/datatables/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<!-- Required datatable js -->
+
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#Jdatatable').DataTable({
+            "processing": true, // for show progress bar while loading
+
+            "ajax": {
+                "url": "/ProjectModules/GetIndex",
+                "type": "get",
+                "datatype": "json"
+            },
+            "columns": [
+                { "data": "ProjectName", "autoWidth": true },
+                { "data": "ModuleName", "autoWidth": true },
+                { "data": "PriorityLevel", "autowidth": true },
+                { "data": "ModulePercentage", "autowidth": true },
+               
+
+                {
+                    "data": "ModuleName",
+                    "autoWidth": true,
+                    "render": function (data) {
+                        return '<a href="#" data-toggle="modal" data-target="#actionsList" onclick="Edit(\'' + data + '\')" >  <i class="fa fa-pencil" aria-hidden="true" >&nbsp;Edit</i></a>&nbsp;&nbsp;' +
+                            '<a href="#" class="text-danger" data-toggle="modal" data-target="#actionsList"  onclick="Delete(\'' + data + '\')" ><i class="fa fa-remove" aria-hidden="true" >&nbsp;Remove<i /></a>';
+                    }
+                }
+
+                //{ "data": "EmailID", "autoWidth": true },
+                //{ "data": "Phone", "autoWidth": true },
+            ]
+        });
+
+    });
+
+</script>

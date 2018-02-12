@@ -19,74 +19,58 @@
                         <ol class="breadcrumb float-right">
                             <li class="breadcrumb-item"><a href="#">Home</a></li>
                             <li class="breadcrumb-item"><a href="#">Staffs</a></li>
-                            <li class="breadcrumb-item active">Create Staff</li>
+                            <li class="breadcrumb-item active">Bio data Editing</li>
                         </ol>
                         <div class="clearfix"></div>
                     </div>
                 </div>
             </div>
+            <form action="@Url.Action("Edit","Staffs")" method="post">
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary()
+                <div class="row">
 
-            <div class="row">
-                <div class="col-lg-6">
-                    <div class="card-box">
-                        <h4 class="header-title m-t-0">Staff Form</h4>
-                        <p class="text-muted font-14 m-b-20">
-                            Bio-data Editing .
-                        </p>
-                        <form action="@Url.Action("Edit","Staffs")" method="post">
-                            @Html.AntiForgeryToken()
-                            @Html.ValidationSummary()
+                    <div class="col-lg-6">
+                        <div class="card-box">
 
-
+                            <h4 class="header-title m-t-0">Basic Details </h4>
+                            @Html.HiddenFor(m=>m.StaffId)
                             <div class="form-group">
                                 <label for="userName">Title<span class="text-danger">*</span></label>
 
-                                @Html.EnumDropDownListFor(m => m.TitleList, new { @class = "form-control", placeholder = "Select_Title", id = "TitleList" })
+                                @Html.TextBoxFor(m => m.Title, new { @class = "form-control", placeholder = "Select_Title", id = "TitleList", Readonly = true })
 
-                                @Html.ValidationMessageFor(m => m.TitleList, null, new { @class = "text-danger" })
-
-                                @Html.HiddenFor(m => m.Title)
+                                @Html.ValidationMessageFor(m => m.Title, null, new { @class = "text-danger" })
 
                             </div>
-
-
                             <div class="form-group">
                                 <label for="userName">First Name<span class="text-danger">*</span></label>
 
                                 @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", placeholder = "Enter First name", id = "userName" })
 
                                 @Html.ValidationMessageFor(m => m.FirstName, null, new { @class = "text-danger" })
-                                @*<input type="text" name="nick" parsley-trigger="change" required
-                                    placeholder="Enter user name" class="form-control" id="userName">*@
+
+                            </div>
+                            <div class="form-group">
+                                <label for="passWord2">Middle Name <span class="text-danger">*</span></label>
+                                @Html.TextBoxFor(m => m.MiddleName, new { @class = "form-control", placeholder = "input Phone Number", id = "PhoneNumber" })
+
+                                @Html.ValidationMessageFor(m => m.MiddleName, null, new { @class = "text-danger" })
                             </div>
                             <div class="form-group">
                                 <label for="emailAddress">Last Name<span class="text-danger">*</span></label>
 
-                                @Html.TextBoxFor(m => m.LastName, new { @class = "form-control", placeholder = "Enter Email Address", id = "emailAddress" })
+                                @Html.TextBoxFor(m => m.LastName, new { @class = "form-control", Readonly = true, placeholder = "Enter Email Address", id = "lastname" })
 
                                 @Html.ValidationMessageFor(m => m.LastName, null, new { @class = "text-danger" })
                             </div>
 
                             <div class="form-group">
-                                <label for="userName">Marital Status<span class="text-danger">*</span></label>
+                                <label for="emailAddress">Email<span class="text-danger">*</span></label>
 
-                                @Html.EnumDropDownListFor(m => m.MaritalStatusList, new { @class = "form-control", placeholder = "Select Marital Status", id = "MaritalStatusList" })
+                                @Html.TextBoxFor(m => m.Email, new { @class = "form-control", Readonly = true, placeholder = "", id = "emailAddress" })
 
-                                @Html.ValidationMessageFor(m => m.MaritalStatusList, null, new { @class = "text-danger" })
-
-                                @Html.HiddenFor(m => m.MaritalStatus)
-                            </div>
-
-                            <div class="form-group">
-                                <label for="pass1">Gender <span class="text-danger">*</span></label>
-                                @*<input id="pass1" type="password" placeholder="Password" required
-                                    class="form-control">*@
-
-                                @Html.EnumDropDownListFor(m => m.GenderList, new { @class = "form-control", placeholder = "Enter First name", id = "GenderList" })
-
-                                @Html.ValidationMessageFor(m => m.GenderList, null, new { @class = "text-       danger" })
-
-                                @Html.HiddenFor(m => m.Gender)
+                                @Html.ValidationMessageFor(m => m.Email, null, new { @class = "text-danger" })
                             </div>
 
                             <div class="form-group">
@@ -96,7 +80,72 @@
                                 @Html.ValidationMessageFor(m => m.PhoneNumber, null, new { @class = "text-danger" })
                             </div>
 
-                            <div class="form-group text-right m-b-0">
+                        </div>
+                    </div>
+
+                    <!--Second Form-->
+                    <!-- end card-box -->
+
+                    <div class="col-lg-6">
+                        <div class="card-box">
+                            <h4 class="header-title m-t-0">More Details </h4>
+
+                            <div class="form-group">
+                                <label for="userName">Marital Status<span class="text-danger">*</span></label>
+
+                                @Html.TextBoxFor(m => m.MaritalStatus, new { @class = "form-control", Readonly = true, placeholder = "", id = "MaritalStatusList" })
+
+                                @Html.ValidationMessageFor(m => m.MaritalStatus, null, new { @class = "text-danger" })
+
+                            </div>
+
+                            <div class="form-group">
+                                <label for="pass1">Gender <span class="text-danger">*</span></label>
+
+                                @Html.TextBoxFor(m => m.Gender, new { @class = "form-control", placeholder = "Enter First name", id = "GenderList", Readonly = true })
+
+                                @Html.ValidationMessageFor(m => m.Gender, null, new { @class = "text-       danger" })
+
+                            </div>
+
+                            <div class="form-group">
+                                <label for="passWord2">Phone Number <span class="text-danger">*</span></label>
+                                @Html.TextBoxFor(m => m.DateOfBirth, new { @class = "form-control", placeholder = "input Phone Number", id = "PhoneNumber", Type = "Date" })
+
+                                @Html.ValidationMessageFor(m => m.DateOfBirth, null, new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                <label for="passWord2">Street Address <span class="text-danger">*</span></label>
+                                @Html.TextBoxFor(m => m.StreetAddress, new { @class = "form-control", placeholder = "input Phone Number", id = "PhoneNumber" })
+
+                                @Html.ValidationMessageFor(m => m.StreetAddress, null, new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                <label for="passWord2">City <span class="text-danger">*</span></label>
+                                @Html.TextBoxFor(m => m.City, new { @class = "form-control", placeholder = "input Phone Number", id = "PhoneNumber" })
+
+                                @Html.ValidationMessageFor(m => m.City, null, new { @class = "text-danger" })
+                            </div>
+
+
+                            <div class="form-group">
+                                <label for="passWord2">State <span class="text-danger">*</span></label>
+                                @Html.TextBoxFor(m => m.StateOfOrigin, new { @class = "form-control", placeholder = "input Phone Number", id = "PhoneNumber" })
+
+                                @Html.ValidationMessageFor(m => m.StateOfOrigin, null, new { @class = "text-danger" })
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="visible-lg" style="height: 79px;"></div>
+
+                </div>
+
+
+                
+                        <div class="row card-box form-group  m-b-0" style="vertical-align:middle">
+
+                            <div class="text-center" style="margin: 0 auto">
                                 <button class="btn btn-primary waves-effect waves-light" type="submit">
                                     Submit
                                 </button>
@@ -104,16 +153,8 @@
                                     Cancel
                                 </button>
                             </div>
-                        </form>
+                        </div>
 
-                        <!--End of Staff Creation Form-->
-                    </div> <!-- end card-box -->
-                </div>
+            </form>
+           
 
-                <div>
-                    @Html.ActionLink("Back to List", "Index")
-                </div>
-
-                @section Scripts {
-                    @Scripts.Render("~/bundles/jqueryval")
-                }

@@ -12,7 +12,10 @@ namespace SwiftPMModel
         public string StaffCode { get; set; }
         
         public string Password { get; set; }
- 
+
+        public bool IsAssigned { get; set; } = false;
+
+        public DateTime DateAdded { get; set; } = DateTime.Now;
         public virtual ICollection<AssignedTask> AssignedTask { get; set; }
 
 

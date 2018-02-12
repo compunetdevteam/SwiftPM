@@ -13,6 +13,17 @@ namespace SwiftPMModel
                 Male = 1,
                 Female,
             }
+             public enum NotFound
+            {          
+                NoUser = 1,
+                NoDepartment,
+                NotCompleted,
+                NoProject,
+                NoTask,
+                NoTaskIssues,
+                NoDepartmentAssigned,
+               
+            }
 
             public enum State
             {
@@ -35,6 +46,22 @@ namespace SwiftPMModel
                 Select_Status, Single, Married, Divorced, Widowed, Widower
             }
 
-        }
+            public enum Role
+            {
+                Select_Role =1,
+                AppAdmin ,
+                HR,
+                CompanyIT,
+                CEO,
+                Director,
+                HOD,
+                Supervisor,
+                Staff
+
+
+
+
+            }
+    }
     }
 

@@ -1,0 +1,127 @@
+﻿@model IEnumerable<SwiftPMModel.Staff>
+
+@{
+    ViewBag.Title = "DepartmentalStaffs";
+}
+
+<h2>DepartmentalStaffs</h2>
+
+@if (User.IsInRole("HR") || User.IsInRole("Director"))
+{
+    <p>
+        @*@Ajax.ActionLink("Create New Staff", "Create",AjaxOptions{ })*@
+    </p>
+}
+<div class="content-page">
+    <!-- Start content -->
+    <div class="content">
+        <div class="container-fluid">
+            <!-- Page-Title -->
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="page-title-box">
+                        <h4 class="page-title">Staff Management</h4>
+                        <ol class="breadcrumb float-right">
+                            <li class="breadcrumb-item"><a href="#">SPM</a></li>
+                            <li class="breadcrumb-item"><a href="#">Departmental Staff</a></li>
+                            <li class="breadcrumb-item active">List</li>
+                        </ol>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Begin row -->
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="card-box table-responsive">
+                        <h4 class="m-t-0 header-title"><b>List Of Departmental Staffs</b></h4>
+                        <p class="text-muted font-13 m-b-30">
+                           All approved staff of the your department
+                        </p>
+                        <table id="Jdatatable" class="table table-striped table-bordered" cellspacing="0">
+                            <thead>
+
+                                <tr>
+                                    <th>
+                                        FirstName
+                                    </th>
+
+                                    <th>
+                                        Last Name
+                                    </th>
+                                    <th>
+                                        Staff Code
+                                    </th>
+                                    <th>
+                                        Email Address
+                                    </th>
+                                    <th>
+                                        Actions
+                                    </th>
+
+                                </tr>
+
+                            </thead>
+
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!-- End row -->
+            <!--End of Datatable -->
+
+
+        </div>
+        <!-- end container -->
+    </div>
+    <!-- end content -->
+    @Html.Partial("~/Views/Shared/BackEndPartials/_Footer.cshtml")
+</div>
+<!-- ============================================================== -->
+<!-- End Right content here -->
+<!-- Plugins  -->
+<script src="~/ThemeBack/plugins/datatables/dataTables.buttons.min.js"></script>
+
+<link href="~/ThemeBack/plugins/datatables/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<!-- Required datatable js -->
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#Jdatatable').DataTable({
+            "processing": true, // for show progress bar while loading
+
+            "ajax": {
+                "url": "/Staffs/GetDepartmentalStaffs",
+                "type": "get",
+                "datatype": "json"
+            },
+            "columns": [
+                { "data": "FirstName", "autoWidth": true },
+                { "data": "LastName", "autoWidth": true },
+                { "data": "StaffCode", "autowidth": true },
+                { "data": "Email", "autowidth": true },
+
+                {
+                    "data": "Email",
+                    "autoWidth": true,
+                    "render": function (data) {
+                        return '<a href="#" data-toggle="modal" data-target="#actionsList" onclick="Details(\'' + data + '\')" >  <i class="fa fa-more" aria-hidden="true" >&nbsp;Edit</i></a>&nbsp;&nbsp;'
+
+                            //+
+
+                            //'<a href="#" class="text-danger" data-toggle="modal" data-target="#actionsList"  onclick="Delete(\'' + data + '\')" ><i class="fa fa-remove" aria-hidden="true" >&nbsp;Remove<i /></a>';
+                    }
+                }
+
+                //{ "data": "EmailID", "autoWidth": true },
+                //{ "data": "Phone", "autoWidth": true },
+            ]
+        });
+
+    });
+
+</script>

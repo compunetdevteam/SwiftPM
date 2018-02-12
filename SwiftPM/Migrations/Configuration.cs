@@ -3,6 +3,8 @@ namespace SwiftPM.Migrations
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.EntityFramework;
     using SwiftPM.Models;
+    using System;
+    using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
 
@@ -10,10 +12,9 @@ namespace SwiftPM.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = true;
-            AutomaticMigrationDataLossAllowed = true;
-           // ContextKey = "SwiftPM.Models.SwiftPmDb";
+            AutomaticMigrationsEnabled = false;
         }
+
 
         protected override void Seed(SwiftPmDb context)
         {
@@ -22,6 +23,15 @@ namespace SwiftPM.Migrations
                 var store = new RoleStore<IdentityRole>(context);
                 var manager = new RoleManager<IdentityRole>(store);
                 var role = new IdentityRole { Name = "AppAdmin" };
+
+                manager.Create(role);
+            }
+
+            if (!context.Roles.Any(r => r.Name == "HR"))
+            {
+                var store = new RoleStore<IdentityRole>(context);
+                var manager = new RoleManager<IdentityRole>(store);
+                var role = new IdentityRole { Name = "HR" };
 
                 manager.Create(role);
             }
@@ -68,7 +78,7 @@ namespace SwiftPM.Migrations
 
                 manager.Create(role);
             }
-           
+
 
             if (!context.Roles.Any(r => r.Name == "Staff"))
             {
@@ -90,7 +100,7 @@ namespace SwiftPM.Migrations
                     EmailConfirmed = true,
                     FirstName = "App Admin",
                     LastName = "SwiftPM",
-               
+
                 };
 
                 manager.Create(user, "admin12345");
@@ -110,4 +120,5 @@ namespace SwiftPM.Migrations
             //
         }
     }
+
 }

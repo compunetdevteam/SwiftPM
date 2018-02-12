@@ -1,0 +1,87 @@
+﻿@model SwiftPMModel.ModuleTask
+
+@{
+    ViewBag.Title = "Create";
+}
+
+
+<div class="content-page">
+    <!-- Start content -->
+    <div class="content">
+        <div class="container-fluid">
+            <!-- Page-Title -->
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="page-title-box">
+                        <h4 class="page-title">Create a Module Task</h4>
+                        <ol class="breadcrumb float-right">
+                            <li class="breadcrumb-item"><a href="#">Project Module</a></li>
+                            <li class="breadcrumb-item"><a href="#">Module Task </a></li>
+                            <li class="breadcrumb-item active">Create </li>
+                        </ol>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="card-box">
+                        <h4 class="header-title m-t-0">Staff Form</h4>
+                        <p class="text-muted font-14 m-b-20">
+                            Create a Task Group under the specified project module.
+                        </p>
+                        <form action="@Url.Action("Create","ModuleTasks")" method="post">
+                            @Html.AntiForgeryToken()
+                            @Html.ValidationSummary()
+
+
+
+                            <div class="form-group">
+                                <label for="userName">ProjectModule Id <span class="text-danger">*</span></label>
+
+                                @Html.DropDownList("ProjectModuleId", null, htmlAttributes: new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.ProjectModuleId, "", new { @class = "text-danger" })
+                            </div>
+
+                            <div class="form-group">
+                                <label for="userName">Task Group Name<span class="text-danger">*</span></label>
+
+                                @Html.TextBoxFor(m => m.ModuleTaskName, new { @class = "form-control", placeholder = "Enter Unit Code", id = "DeptCode" })
+
+                                @Html.ValidationMessageFor(m => m.ModuleTaskName, null, new { @class = "text-danger" })
+
+                            </div>
+
+
+                            <div class="form-group">
+                                <label for="userName">Decription Code <span class="text-danger">*</span></label>
+
+                                @Html.TextAreaFor(m => m.ModuleTaskDescription, new { @class = "form-control", placeholder = "Enter Unit Code", id = "DepartmentHead" })
+
+                                @Html.ValidationMessageFor(m => m.ModuleTaskDescription, null, new { @class = "text-danger" })
+
+                            </div>
+                            <div class="form-group">
+                                <label for="userName">Expected Completion Date <span class="text-danger">*</span></label>
+
+                                @Html.EditorFor(m => m.ExpectedCompletionDate, new { @class = "form-control", placeholder = "Enter Unit Code", id = "DepartmentHead" })
+
+                                @Html.ValidationMessageFor(m => m.ExpectedCompletionDate, null, new { @class = "text-danger" })
+
+                            </div>
+
+                            <div class="form-group text-right m-b-0">
+                                <button class="btn btn-primary waves-effect waves-light" type="submit">
+                                    Create
+                                </button>
+                                <button type="reset" class="btn btn-secondary waves-effect m-l-5">
+                                    Cancel
+                                </button>
+                            </div>
+                        </form>
+
+                        <!--End of Staff Creation Form-->
+                    </div> <!-- end card-box -->
+                </div>
+              

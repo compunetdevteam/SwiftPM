@@ -1,11 +1,12 @@
 ﻿
 using System.Linq;
 using System.Web.Mvc;
-using Microsoft.AspNet.Identity;
 using SwiftPM.Models;
 using SwiftPM.Models.ViewModels;
 using SwiftPMModel;
-
+using SwiftPM.Extensions;
+using System.Threading.Tasks;
+using Microsoft.AspNet.Identity;
 
 namespace SwiftPM.Controllers
 {
@@ -22,17 +23,37 @@ namespace SwiftPM.Controllers
             parentVm = new ParentVm();
 
             db = new SwiftPmDb();
-            //UserId = parentVm.UserId = User.Identity.GetUserId();
-            FullName = parentVm.FullName = "";
-            //parentVm.FullName = 
 
+           // UserId = User.Identity.GetUserId();
 
-           // public string UserId = User.Identity.GetUserId();
+           // FullName = parentVm.FullName= User.Identity.GetAppUserFullName();
+
         }
 
-        public void RegisterStaff(Staff staff)
+        public decimal ProjectCompletionRate(int id)
         {
             
+            var totalTask = db.TaskActivities.Count(x=>x.ModuleTask.ProjectModuleId ==id);
+
+            var completed = db.TaskActivities.Where(x=>x.ModuleTask.ProjectModuleId==id).Count(x => x.IsCompleted.Equals(true));
+
+            decimal completedrate = (completed * 100) / 100;
+
+            return completedrate;
+
         }
+
+        //public async Task<ActionResult> LastesProjects(int number = 4)
+        //{
+        //    var lastest = db.ProjectModules.OrderByDescending(x => x.DateAdded).Select(x=> new { x.ModuleName , x.mo,x.ProjectDescription})
+        //}
+
+
+
+        //public string CompletionRate(string id)
+        //{
+
+        //}
+
     }
 }

@@ -75,23 +75,31 @@ namespace SwiftPM.Controllers
             {
                 return View(model);
             }
-
+            try
+            {
+                var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+                switch (result)
+                {
+                    case SignInStatus.Success:
+                        return RedirectToAction("Dashboard", "Home", new { userId = User.Identity.GetUserId() });
+                    case SignInStatus.LockedOut:
+                        return View("Lockout");
+                    case SignInStatus.RequiresVerification:
+                        return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
+                    case SignInStatus.Failure:
+                    default:
+                        ModelState.AddModelError("", "Invalid login attempt. Verify Email and Password and Try again");
+                        return View(model);
+                }
+            }
+            catch (Exception e)
+            {
+                ViewBag.Message = "Something Went Wrong";
+                return View(model); 
+            }
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
-            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
-            switch (result)
-            {
-                case SignInStatus.Success:
-                    return RedirectToAction("Dashboard","Home");
-                case SignInStatus.LockedOut:
-                    return View("Lockout");
-                case SignInStatus.RequiresVerification:
-                    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
-                case SignInStatus.Failure:
-                default:
-                    ModelState.AddModelError("", "Invalid login attempt. Verify Email and Password and Try again");
-                    return View(model);
-            }
+           
         }
 
         //
@@ -197,7 +205,7 @@ namespace SwiftPM.Controllers
                
                 if ( !(db.Staffs.Any(s=>s.Email.Equals(model.Email))))
                 {
-                    Staff staff = db.Staffs.FirstOrDefault(s => s.StaffCode.Equals(model.StaffCode));
+                    Staff staff = db.Staffs.Find(model.StaffId);
                   try
                     {
 
@@ -214,9 +222,10 @@ namespace SwiftPM.Controllers
                         var result = await UserManager.CreateAsync(user, model.Password);
 
                         if (result.Succeeded)
-                        {                                     
-                            //staff.StaffId = user.Id;
-                                                              
+                        {
+                            staff.Email = model.Email;
+                            staff.Password = model.Password;
+                            
                             db.Entry(staff).State = EntityState.Modified;
                             await db.SaveChangesAsync();
 

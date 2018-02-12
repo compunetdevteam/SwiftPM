@@ -9,10 +9,14 @@ namespace SwiftPMModel
         public int TaskActivityId { get; set; }
         public int ModuleTaskId { get; set; }
         public string ActivityName { get; set; }
-        public DateTime CreatedDate { get; set; }
+
+        public bool? IsCompleted { get; set; }
+        public DateTime CreatedDate { get; set; } = DateTime.Now;
         public DateTime? DueDate { get; set; }
         public virtual ModuleTask ModuleTask { get; set; }
         public virtual ICollection<AssignedTask> AssignedTask { get; set; }
+
+        
 
     }
 }

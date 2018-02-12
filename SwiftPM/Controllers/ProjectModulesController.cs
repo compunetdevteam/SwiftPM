@@ -12,16 +12,27 @@ using SwiftPMModel;
 
 namespace SwiftPM.Controllers
 {
-    public class ProjectModulesController : Controller
+    public class ProjectModulesController : ParentController
     {
-        private SwiftPmDb db = new SwiftPmDb();
+       // private SwiftPmDb db = new SwiftPmDb();
 
         // GET: ProjectModules
-        public async Task<ActionResult> Index()
+        public ActionResult Index()
         {
-            var projectModules = db.ProjectModules.Include(p => p.Project);
-            return View(await projectModules.ToListAsync());
+            //var projectModules = db.ProjectModules.ToListAsync();
+            return View( );
         }
+
+        public  async Task<JsonResult> GetIndex()
+        {
+            var projectModules = await db.ProjectModules.Select
+                (p => new { p.Project.ProjectName, p.ModuleName, p.PriorityLevel, p.ModulePercentage }).ToListAsync();
+
+            return Json( new { data = projectModules } , JsonRequestBehavior.AllowGet);
+
+            
+        }
+
 
         // GET: ProjectModules/Details/5
         public async Task<ActionResult> Details(int? id)

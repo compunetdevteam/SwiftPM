@@ -1,0 +1,50 @@
+﻿@model SwiftPMModel.AssignStaffToDept
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>AssignStaffToDept</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Department.DeptName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Department.DeptName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Staff.StaffCode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Staff.StaffCode)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StaffRole)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StaffRole)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateOfAssignment)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateOfAssignment)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.AssignStaffToDeptId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

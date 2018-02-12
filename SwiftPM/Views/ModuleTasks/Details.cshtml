@@ -1,0 +1,58 @@
+﻿@model SwiftPMModel.ModuleTask
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>ModuleTask</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ProjectModule.ModuleName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProjectModule.ModuleName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ModuleTaskName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ModuleTaskName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ModuleTaskDescription)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ModuleTaskDescription)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CreatedDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CreatedDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ExpectedCompletionDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ExpectedCompletionDate)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ModuleTaskId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

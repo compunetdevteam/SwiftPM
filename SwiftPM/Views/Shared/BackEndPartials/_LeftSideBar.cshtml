@@ -1,7 +1,14 @@
 ﻿<!--Left Side Bar -->
 @using Microsoft.AspNet.Identity;
+@using SwiftPM.Extensions;
+@using SwiftPM.Models.ViewModels;
+
+
 @{ 
+    ParentVm parentVm = new ParentVm();
+
     var userId = User.Identity.GetUserId();
+    string tasIssuesCount = parentVm.GetTaskIssuesCount();
 }
 <div class="left side-menu">
     <div class="sidebar-inner slimscrollleft">
@@ -12,29 +19,58 @@
 
                 <!--Bio data /Profile Mgt-->
                 <li>
-                    <a href="@Url.Action("DashBoard","Home")" class="waves-effect waves-primary">
+                    <a href="@Url.Action("DashBoard", "Home")" class="waves-effect waves-primary">
                         <i class="ti-home"></i><span> Dashboard </span>
                     </a>
                 </li>
                 <li class="has_sub">
                     <a href="javascript:void(0);" class="waves-effect waves-primary">
-                        <i class="ti-paint-bucket"></i> <span>Profile Mgt </span>
+                        <i class="ti-paint-bucket"></i> <span>Bio-data Mgt </span>
                         <span class="menu-arrow"></span>
                     </a>
                     <ul class="list-unstyled">
-                        <li><a href="@Url.Action("Edit","Staff", new { id = userId})">Edit Biodata</a></li>
-                        <li><a href="@Url.Action("AddPhoneNumber", "Manage", new { id= userId })">Add Phone Number</a></li>
-                        <li><a href="@Url.Action("ChangePaword", "Manage", new { id= userId })">Change Password</a></li>
+                        <li><a href="@Url.Action("Edit", "Staffs", new { id = userId })">Edit Biodata</a></li>
+                        <li><a href="@Url.Action("AddPhoneNumber", "Manage")">Add Phone Number</a></li>
+                        <li><a href="@Url.Action("ChangePassword", "Manage")">Change Password</a></li>
 
 
                     </ul>
                 </li>
 
-                @*<li>
-                    <a href="typography.html" class="waves-effect waves-primary">
-                        <i class="ti-infinite"></i><span> Project </span><span class="badge badge-pink pull-right">1</span>
+                <!--Departments -->
+                <li class="has_sub">
+                    <a href="javascript:void(0);" class="waves-effect waves-primary">
+                        <i class="ti-light-bulb"></i><span>Departmentals</span> <span class="menu-arrow"></span>
                     </a>
-                </li>*@
+                    <ul class="list-unstyled">
+
+
+                        @*@
+                if (User.IsInRole("AppAdmin") || User.IsInRole("CEO") || User.IsInRole("Director") || User.IsInRole("ITAdmin") || User.IsInRole("HR"))
+                {*@
+                        <li><a href="@Url.Action("Index", "Staffs")"> All Staffs</a></li>
+
+
+
+                        <li><a href="@Url.Action("Create", "Departments")">Add a Department</a></li>
+
+
+                        <li><a href="@Url.Action("Create", "Units")">Add a Unit</a></li>
+
+                        <li><a href="@Url.Action("Index", "Units")">View Units</a></li>
+
+
+                        @*<li><a href="@Url.Action("NonAssigned", "Staffs")">View all NonAssinged Staffs</a></li>*@
+
+
+                        @*}
+
+                }*@
+
+                    </ul>
+                </li>
+
+
 
                 <!--Project Management-->
                 <li class="has_sub">
@@ -42,12 +78,29 @@
                         <i class="ti-light-bulb"></i><span>Projects </span> <span class="menu-arrow"></span>
                     </a>
                     <ul class="list-unstyled">
-                        <li><a href="@Url.Action("DashBaord","Pojects")"> Project Overview</a></li>
-                        <li><a href="@Url.Action("Create","Projects")">Add a Project</a></li>
-                        <li><a href="@Url.Action("Index","Projects")">View all Projects</a></li>
-                        @*<li><a href="components-nestable-list.html">Nesteble</a></li>
-                        <li><a href="components-range-sliders.html">Range Sliders </a></li>
-                        <li><a href="components-sweet-alert.html">Sweet Alerts </a></li>*@
+
+                        @* @{
+                if (User.IsInRole("Director") || User.IsInRole("HOD") || User.IsInRole("Surpervisor"))
+                {*@
+
+                        <li><a href="@Url.Action("Create", "Projects")">Add a Project</a></li>
+
+                        <li><a href="@Url.Action("Index", "Projects")">View all Projects</a></li>
+
+                        <li><a href="@Url.Action("Create", "ProjectModules")">Add Project Module</a></li>
+                        @*}
+
+                if (User.IsInRole("Director") || User.IsInRole("CEO"))
+                {*@
+                        <li><a href="@Url.Action("Index", "ProjectModules")">View Project Modules </a></li>
+
+
+
+                        @*}
+                }*@
+
+
+
                     </ul>
                 </li>
 
@@ -59,75 +112,106 @@
                         <span> Project Module </span> <span class="menu-arrow"></span>
                     </a>
                     <ul class="list-unstyled">
-                        <li><a href="@Url.Action("DashBoard","ProjectModules")"> Project Modules Overview</a></li>
-                        <li><a href="@Url.Action("Index","")">View all Proejct Modules</a></li>
-                        <li><a href="icons-ionicons.html">Add Project Module</a></li>
-                        @*<li><a href="icons-fontawesome.html">Font awesome</a></li>
-                <li><a href="icons-weather.html">Weather Icons</a></li>*@
+
+
+                        @*@{
+                if (User.IsInRole("HOD") || User.IsInRole("Supervisor") || User.IsInRole("Director") || User.IsInRole("CEO"))
+                {*@
+                        <li><a href="@Url.Action("Create", "ProjectModules")">Add Project Module</a></li>
+
+
+                        @*}
+
+                if (User.IsInRole("Director") || User.IsInRole("CEO"))
+                {*@
+                        <li><a href="@Url.Action("Index", "ProjectModules")">View Project Modules </a></li>
+
+
+
+                        @*<li><a href="@Url.Action("DeptProjects", "ProjectModules", new {deptId = User.Identity.GetUserDept()})">View All Project Modules</a></li>*@
+
+
                     </ul>
                 </li>
 
-                <!--Task Management-->
+                <!--Task Modules Management-->
                 <li class="has_sub">
-                    <a href="javascript:void(0);" class="waves-effect waves-primary"><i class="ti-pencil-alt"></i><span> Task Modules</span> <span class="menu-arrow"></span></a>
+                    <a href="javascript:void(0);" class="waves-effect waves-primary"><i class="ti-pencil-alt"></i><span> Task Groups</span> <span class="menu-arrow"></span></a>
                     <ul class="list-unstyled">
-                        <li><a href="form-elements.html">Task Modules</a></li>
-                        <li><a href="form-advanced.html">View All Task</a></li>
-                        <li><a href="form-validation.html">Add a Task</a></li>
-                        @*<li><a href="form-wizard.html">Form Wizard</a></li>
-                <li><a href="form-wysiwig.html">WYSIWYG Editor</a></li>
-                <li><a href="form-summernote.html">Summernote</a></li>
-                <li><a href="form-uploads.html">Multiple File Upload</a></li>
-                <li><a href="form-xeditable.html">X-editable</a></li>*@
+
+                        @*@{
+                if (User.IsInRole("HOD") || User.IsInRole("Supervisor"))
+                {*@
+                        <li><a href="@Url.Action("Create", "ModuleTasks")">Add Task Group</a></li>
+
+                        @*}
+                }*@
+                        <li><a href="@Url.Action("Index", "ModuleTasks")">View Task Groups</a></li>
                     </ul>
+
                 </li>
-                <li class="menu-title">More</li>
+
                 <li class="has_sub">
-                    <a href="javascript:void(0);" class="waves-effect waves-primary"><i class="ti-menu-alt"></i><span>Task Units </span> <span class="menu-arrow"></span></a>
+                    <a href="javascript:void(0);" class="waves-effect waves-primary"><i class="ti-menu-alt"></i><span>Single Tasks  </span> <span class="menu-arrow"></span></a>
                     <ul class="list-unstyled">
-                        <li><a href="tables-basic.html">TaskUnit Overview</a></li>
-                        <li><a href="tables-datatable.html"> View all TasksUnits</a></li>
-                        <li><a href="tables-editable.html">Add a Task Unit</a></li>
-                        @*<li><a href="tables-responsive.html">Responsive Table</a></li>
-                        <li><a href="tables-tablesaw.html">Tablesaw Table</a></li>
-                        <li><a href="tables-foo-tables.html">Foo Table</a></li>*@
-                    </ul>
-                </li>
-                <li class="has_sub">
-                    <a href="javascript:void(0);" class="waves-effect waves-primary">
-                        <i class="ti-stats-up"></i><span> Task Unit Issues </span> <span class="badge badge-primary pull-right">8</span>
-                    </a>
-                    <ul class="list-unstyled">
-                        <li><a href="chart-flot.html">  Issues Overview</a></li>
-                        <li><a href="chart-morris.html"></a>View All Issues </li>
-                        <li><a href="chart-chartist.html"> Add a Noticed Issue</a></li>
-                        <li><a href="chart-nvd3.html">View Resolved Issues</a></li>
-                        <li><a href="chart-chartjs.html">View UnResolved Issues</a></li>
-                        @*<li><a href="chart-peity.html">Peity Charts</a></li>
-                        <li><a href="chart-sparkline.html">Sparkline Charts</a></li>
-                        <li><a href="chart-other.html">Other Chart</a></li>*@
+
+                        @*@{
+                if (User.IsInRole("HOD") || User.IsInRole("Supervisor"))
+                {*@
+                        <li><a href="@Url.Action("Create", "TaskActivities")">Assign a Staff to Department </a></li>
+                        <li><a href="@Url.Action("Index", "TaskActivities" )"> View Single Tasks</a></li>
+
+                        @*}
+                }*@
+
                     </ul>
                 </li>
                 <li class="has_sub">
-                    <a href="javascript:void(0);" class="waves-effect waves-primary">
-                        <i class="ti-map"></i><span> Maps </span><span class="menu-arrow"></span>
-                    </a>
+                    <a href="javascript:void(0);" class="waves-effect waves-primary"><i class="ti-menu-alt"></i><span>Assign Tasks To Staff  </span> <span class="menu-arrow"></span></a>
                     <ul class="list-unstyled">
-                        <li><a href="map-google.html"> Google Map</a></li>
-                        <li><a href="map-vector.html"> Vector Map</a></li>
+
+                        @*@{
+                if (User.IsInRole("HOD") || User.IsInRole("Supervisor"))
+                {*@
+                        <li><a href="@Url.Action("Create", "AssignTasks")">Assign Task To Staff</a></li>
+                        <li><a href="@Url.Action("Index", "AssignedTasks" )"> View Single Tasks</a></li>
+
+                        @*}
+                }*@
+
                     </ul>
                 </li>
                 <li class="has_sub">
                     <a href="javascript:void(0);" class="waves-effect waves-primary">
-                        <i class="ti-email"></i><span> Mailing  </span> <span class="menu-arrow"></span>
+                        <i class="ti-stats-up"></i><span> Task Issues </span> <span class="badge badge-primary pull-right"> @tasIssuesCount</span>
                     </a>
                     <ul class="list-unstyled">
-                        <li><a href="mail-inbox.html"> Emails</a></li>
+
+                        @*@{
+                if (User.IsInRole("HOD") || User.IsInRole("Supervisor"))
+                {*@
+                        <li><a href="@Url.Action("Create", "ModuleTaskIssues")">Add a Task </a></li>
+
+                        @*}
+                }*@
+                        <li><a href="@Url.Action("Index", "ModuleTaskIssues")">View Tasks Issues</a></li>
+                    </ul>
+                </li>
+
+                <li class="has_sub">
+                    <a href="javascript:void(0);" class="waves-effect waves-primary">
+                        <i class="ti-paint-bucket"></i> <span>Staff Mgt </span>
+                        <span class="menu-arrow"></span>
+                    </a>
+                    <ul class="list-unstyled">
+                        <li><a href="@Url.Action("Create", "Staffs")">Create Staff</a></li>
                         
+
                     </ul>
                 </li>
-                
-                
+
+
+
             </ul>
             <div class="clearfix"></div>
         </div>

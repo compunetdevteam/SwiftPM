@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace SwiftPMModel
 {
@@ -9,7 +10,10 @@ namespace SwiftPMModel
         
         public string ModuleTaskName { get; set; }
         public string ModuleTaskDescription { get; set; }
-        public DateTime CreatedDate { get; set; }
+        public DateTime CreatedDate { get; set; } = DateTime.Now;
+
+        [DataType(DataType.DateTime)]
+        
         public DateTime ExpectedCompletionDate { get; set; }
 
         public int ProjectModuleId { get; set; }

@@ -20,7 +20,7 @@ namespace SwiftPM.Controllers
 
         public async Task<ActionResult> GetProjects()
         {
-            var data = await db.Projects.Select(x => new { x.ProjectName, x.PriorityLevel, x.CreationDate, x.ProjectDescription }).ToListAsync();
+            var data = await db.Projects.Select(x => new { x.ProjectCode,x.ProjectName , x.PriorityLevel, x.ProjectDescription }).ToListAsync();
 
             return Json(new { data = data} , JsonRequestBehavior.AllowGet);
 

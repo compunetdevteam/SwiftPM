@@ -5,9 +5,9 @@
     <div class="content white agile-info">
         <nav class="navbar navbar-default" role="navigation">
 
-            <div >
-                <div class="row container">
-                    <div class="col-md-4 navbar-header">
+         
+                <div class="container">
+                    <div class="navbar-header">
                         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                             <span class="sr-only">Toggle navigation</span>
                             <span class="icon-bar"></span>
@@ -15,17 +15,17 @@
                             <span class="icon-bar"></span>
                         </button>
 
-                        <a class="navbar-brand" href="#">
+                        <a class="navbar-brand active" href="@Url.Action("Index","Home")" title="Home - Enhancing Project Management">
                             <h1 style="float:left; text-transform:capitalize"><span class="fa fa-signal" aria-hidden="true" style="float:left; text-transform:capitalize" ></span> SwiftPm  <label style="font-size:12.5px"></label></h1>
                         </a>
                     </div>
                     <!--/.navbar-header-->
-                    <div class="col-md-offset-10 navbar-collapse" id="bs-example-navbar-collapse-1" >
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" >
                         <nav class="link-effect-2" id="link-effect-2" style="float:right">
                             <ul class="nav navbar-nav">
-                                <li class="active">
+                                @*<li class="active">
                                     <a href="@Url.Action("Index","Home")" class="effect-3">Home</a>
-                                </li>
+                                </li>*@
                                 <li class="dropdown">
                                     <a href="#" id="keyFeatures" onmouseover="ShowSubMenu" class="dropdown-toggle effect-3" data-toggle="dropdown">Key Features <b class="caret"></b></a>
                                     <ul class="dropdown-menu" id="submenu">
@@ -59,14 +59,14 @@
                     <!--/.navbar-->
                 </div>
 
-            </div>
+          
            
         </nav>
     </div>
 </div>
 
-<script>
+@*<script>
     function ShowSubMenu() {
         $('#submenu').show();
     };
-</script>
+</script>*@

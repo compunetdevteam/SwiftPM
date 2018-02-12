@@ -49,11 +49,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssignedTask.cs" />
+    <Compile Include="AssignProjectDept.cs" />
     <Compile Include="AssignStaffToDept.cs" />
+    <Compile Include="Contact.cs" />
     <Compile Include="Department.cs" />
     <Compile Include="DropDown.cs" />
+    <Compile Include="Organization.cs" />
     <Compile Include="Person.cs" />
-    <Compile Include="System\HttpPostedFileBase.cs" />
     <Compile Include="ModuleTask.cs" />
     <Compile Include="ModuleTaskIssue.cs" />
     <Compile Include="Project.cs" />

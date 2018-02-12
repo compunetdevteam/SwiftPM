@@ -10,36 +10,43 @@ using System.Web.Mvc;
 using SwiftPM.Models;
 using SwiftPMModel;
 using SwiftPM.Models.ViewModels;
+using static SwiftPMModel.DropDown;
+using SwiftPM.Extensions;
+using Microsoft.AspNet.Identity;
 
 namespace SwiftPM.Controllers
 {
     public class StaffsController : ParentController
     {
-       // private SwiftPmDb db = new SwiftPmDb();
+        // private SwiftPmDb db = new SwiftPmDb();
 
-        // GET: Staffs
+        public int DepartId ;                                  
+
         public async Task<ActionResult> Index()
         {
             return View(await db.Staffs.ToListAsync());
         }
 
 
-        public async Task<ActionResult> GetIndex()
+        public async Task<JsonResult> GetIndex()
         {
-            var data = await db.Staffs.Select(x => new {x.FirstName, x.LastName,x.StaffCode,
-                                                        x.Email})
-                .ToListAsync();
+            var dataContent = await db.Staffs.ToListAsync();
 
-            return Json(new { data = data }, JsonRequestBehavior.AllowGet);
+            if (dataContent.Any())
+            {
+                var collect = dataContent.Select(x => new { x.Title,x.FirstName, x.LastName, x.StaffCode });
+                return Json(new { data = dataContent }, JsonRequestBehavior.AllowGet);
+            }
+            return Json(new { data = "" }, JsonRequestBehavior.AllowGet);
         }
 
 
         // Get all staffs in the department of the HOD or Director
 
-        [Authorize(Roles ="HOD")]
-        public async Task<ActionResult> GetDepartmentalStaffs(int DeptId)
+        //[Authorize(Roles ="HOD")]
+        public async Task<JsonResult> GetDepartmentalStaffs()
         {
-            var data = await db.AssignStaffToDepts.Where(x=>x.DepartmentId ==DeptId).Select(x => new {
+            var data = await db.AssignStaffToDepts.Where(x=>x.DepartmentId == User.Identity.GetUserDept()).Select(x => new {
                 x.Staff.FirstName,
                 x.Staff.LastName,
                 x.Staff.StaffCode,
@@ -48,6 +55,19 @@ namespace SwiftPM.Controllers
 
             return Json(new { data = data }, JsonRequestBehavior.AllowGet);
         }
+
+        public ActionResult DepartmentalStaffs(int? DeptId)
+        {
+            if (DeptId!= 2 || DeptId !=0)
+            {              
+                ViewBag.Message = "List Of all staffs in your department;";
+                return View();
+            }
+          
+            ViewBag.Message = "You have not been assigned to a department . Consult the Human Resource;";
+            return View();
+        }
+
 
 
 
@@ -80,7 +100,7 @@ namespace SwiftPM.Controllers
         public async Task<ActionResult> Create(CreateStaffVm staff)
         {
             Random random = new Random();
-            string staffCode = ("COM"+random.Next(1, 99999)).ToString();
+            string staffCode = ("COM"+random.Next(1, 99999));
 
             if (ModelState.IsValid)
             {
@@ -90,17 +110,14 @@ namespace SwiftPM.Controllers
                     Staff newStaff = new Staff()
                     {
                         StaffId = staffCode,
-                        StaffCode = (staff.FirstName + staffCode.ToString()).ToUpper(),
+                        StaffCode = (staff.FirstName + staffCode).ToUpper(),
                         FirstName = staff.FirstName,
                         LastName = staff.LastName,
                         Title = staff.Title.ToString(),
                         MaritalStatus = staff.MaritalStatus.ToString(),
                         Gender= staff.Gender.ToString(),
-                       
-                        
-                        
+                                               
                         PhoneNumber = staff.PhoneNumber,                      
-
                     };         
 
                     db.Staffs.Add(newStaff);

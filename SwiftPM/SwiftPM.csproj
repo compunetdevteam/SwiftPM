@@ -201,10 +201,12 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AssignedTasksController.cs" />
+    <Compile Include="Controllers\AssignStaffToDeptsController.cs" />
     <Compile Include="Controllers\DepartmentsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ModuleTaskIssuesController.cs" />
+    <Compile Include="Controllers\ModuleTasksController.cs" />
     <Compile Include="Controllers\ParentController.cs" />
     <Compile Include="Controllers\ProjectModulesController.cs" />
     <Compile Include="Controllers\ProjectsController.cs" />
@@ -214,6 +216,22 @@
     <Compile Include="Extensions\ClaimsExtensions.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201802120543262_recreatedAutoMigrationsDisabled.cs" />
+    <Compile Include="Migrations\201802120543262_recreatedAutoMigrationsDisabled.Designer.cs">
+      <DependentUpon>201802120543262_recreatedAutoMigrationsDisabled.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201802120853391_removedRoleOnDepartmentAssignment.cs" />
+    <Compile Include="Migrations\201802120853391_removedRoleOnDepartmentAssignment.Designer.cs">
+      <DependentUpon>201802120853391_removedRoleOnDepartmentAssignment.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201802121058529_ModuleTaskDateDataAnnotation.cs" />
+    <Compile Include="Migrations\201802121058529_ModuleTaskDateDataAnnotation.Designer.cs">
+      <DependentUpon>201802121058529_ModuleTaskDateDataAnnotation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201802121401275_makePercentageNullableProjectModule.cs" />
+    <Compile Include="Migrations\201802121401275_makePercentageNullableProjectModule.Designer.cs">
+      <DependentUpon>201802121401275_makePercentageNullableProjectModule.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -518,7 +536,9 @@
     <Content Include="Theme\images\test3.jpg" />
     <Content Include="Theme\js\bootstrap.js" />
     <Content Include="Theme\js\jquery-2.1.4.min.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -648,6 +668,18 @@
     <Content Include="Views\Home\TestPage.cshtml" />
     <Content Include="Views\Shared\BackEndPartials\_Footer.cshtml" />
     <Content Include="Views\Shared\BackEndPartials\_HeadTag.cshtml" />
+    <Content Include="Views\AssignStaffToDepts\Create.cshtml" />
+    <Content Include="Views\AssignStaffToDepts\Delete.cshtml" />
+    <Content Include="Views\AssignStaffToDepts\Details.cshtml" />
+    <Content Include="Views\AssignStaffToDepts\Edit.cshtml" />
+    <Content Include="Views\AssignStaffToDepts\Index.cshtml" />
+    <Content Include="Views\Staffs\DepartmentalStaffs.cshtml" />
+    <Content Include="Views\AssignStaffToDepts\CreateStaffDept.cshtml" />
+    <Content Include="Views\ModuleTasks\Create.cshtml" />
+    <Content Include="Views\ModuleTasks\Delete.cshtml" />
+    <Content Include="Views\ModuleTasks\Details.cshtml" />
+    <Content Include="Views\ModuleTasks\Edit.cshtml" />
+    <Content Include="Views\ModuleTasks\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -670,6 +702,20 @@
       <Project>{8a074089-4026-439a-b6c6-7e470a816973}</Project>
       <Name>SwiftPMModel</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201802120543262_recreatedAutoMigrationsDisabled.resx">
+      <DependentUpon>201802120543262_recreatedAutoMigrationsDisabled.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201802120853391_removedRoleOnDepartmentAssignment.resx">
+      <DependentUpon>201802120853391_removedRoleOnDepartmentAssignment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201802121058529_ModuleTaskDateDataAnnotation.resx">
+      <DependentUpon>201802121058529_ModuleTaskDateDataAnnotation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201802121401275_makePercentageNullableProjectModule.resx">
+      <DependentUpon>201802121401275_makePercentageNullableProjectModule.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

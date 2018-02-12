@@ -54,7 +54,7 @@ namespace SwiftPMModel
 
         public bool Active { get; set; } = true;
 
-        public DateTime DateAdded { get; set; } = DateTime.Now;
+        
 
         public byte[] Passport { get; set; }
 

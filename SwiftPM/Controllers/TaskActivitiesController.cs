@@ -19,8 +19,13 @@ namespace SwiftPM.Controllers
         // GET: TaskActivities
         public async Task<ActionResult> Index()
         {
-            var taskActivities = db.TaskActivities.Include(t => t.ModuleTask);
-            return View(await taskActivities.ToListAsync());
+            var taskActivities =  db.TaskActivities.ToListAsync();
+            return View(await taskActivities);
+        }
+        public async Task<JsonResult> GetIndex()
+        {
+            var taskActivities = await  db.TaskActivities.Select( t => new { t.ModuleTask.ModuleTaskName , t.ActivityName ,t.CreatedDate,t.DueDate}).ToListAsync();
+            return Json(new { data = taskActivities} , JsonRequestBehavior.AllowGet);
         }
 
         public async Task<ActionResult> GetTasks()

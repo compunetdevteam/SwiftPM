@@ -35,17 +35,17 @@
 
                                 <tr>
                                     <th>
-                                        FirstName
+                                        Title
                                     </th>
 
+                                    <th>
+                                        First Name
+                                    </th>
                                     <th>
                                         Last Name
                                     </th>
                                     <th>
-                                        Staff Code
-                                    </th>
-                                    <th>
-                                       Email Address
+                                       Staff Code
                                     </th>                                   
                                     <th>
                                         Actions
@@ -94,13 +94,14 @@
                 "datatype": "json"
             },
             "columns": [
+                { "data": "Title", "autoWidth": true },
                 { "data": "FirstName", "autoWidth": true },
-                { "data": "LastName", "autoWidth": true },
-                { "data" : "StaffCode", "autowidth": true},
-                { "data": "Email", "autowidth": true },
+                { "data": "LastName", "autowidth": true},
+                { "data": "StaffCode", "autowidth": true },
+                
 
                 {
-                    "data": "Email",
+                    "data": "StaffCode",
                     "autoWidth": true,
                     "render": function (data) {
                         return '<a href="#" data-toggle="modal" data-target="#actionsList" onclick="Edit(\''+ data + '\')" >  <i class="fa fa-pencil" aria-hidden="true" >&nbsp;Edit</i></a>&nbsp;&nbsp;' +

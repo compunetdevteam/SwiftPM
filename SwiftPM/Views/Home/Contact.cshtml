@@ -1,17 +1,101 @@
-﻿@{
-    ViewBag.Title = "Contact";
-}
-<h2>@ViewBag.Title.</h2>
-<h3>@ViewBag.Message</h3>
+﻿
+        <!-- banner -->
+        <div class="inner_page_agile">
+            <h3>Contact</h3>
+            <p>Reach Us through any of our media</p>
 
-<address>
-    One Microsoft Way<br />
-    Redmond, WA 98052-6399<br />
-    <abbr title="Phone">P:</abbr>
-    425.555.0100
-</address>
+        </div>
+        <!--//banner -->
+        <!--/w3_short-->
+        <div class="services-breadcrumb_w3layouts">
+            <div class="inner_breadcrumb">
 
-<address>
-    <strong>Support:</strong>   <a href="mailto:Support@example.com">Support@example.com</a><br />
-    <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
-</address>
+                <ul class="short_w3ls" _w3ls>
+                    <li><a href="@Url.Action("Index","Home")">Home</a><span>|</span></li>
+                    <li>Contact</li>
+                </ul>
+            </div>
+        </div>
+        <!--//w3_short-->
+        <!-- /inner_content -->
+        <div class="inner_content_info_agileits">
+            <div class="container">
+                <div class="tittle_head_w3ls">
+                    <h3 class="tittle">Contact Us</h3>
+                </div>
+                <div class="inner_sec_grids_info_w3ls">
+                    <div class="col-md-4 agile_info_mail_img_info">
+                        <div class="address-grid">
+                            <h4>Contact <span>Info</span></h4>
+                            <div class="mail-agileits-w3layouts">
+                                <i class="fa fa-volume-control-phone" aria-hidden="true"></i>
+                                <div class="contact-right">
+                                    <p>Telephone </p><span>+234 9 291 9296</span>
+                                </div>
+                                <div class="clearfix"> </div>
+                            </div>
+                            <div class="mail-agileits-w3layouts">
+                                <i class="fa fa-envelope-o" aria-hidden="true"></i>
+                                <div class="contact-right">
+                                    <p>Website </p><a href="http://www.compunetlimited.org">Compunetlimited.org</a>
+                                </div>
+                                <div class="clearfix"> </div>
+                            </div>
+                            <div class="mail-agileits-w3layouts">
+                                <i class="fa fa-map-marker" aria-hidden="true"></i>
+                                <div class="contact-right">
+                                    <p>Office Location</p><span>12 Rwang Pam St, Jos, Nigeria.</span>
+                                </div>
+                                <div class="clearfix"> </div>
+                            </div>
+                            <div class="agileits_w3layouts_nav_right contact">
+                                <div class="social two">
+                                    <ul>
+                                        <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                        <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                        <li><a href="#"><i class="fa fa-rss"></i></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-8 agile_info_mail_img">
+
+                    </div>
+                    <div class="clearfix"> </div>
+                    <div class="w3layouts_mail_grid">
+                        <form action="@Url.Action("Contact","Home")" method="post">
+                            @Html.AntiForgeryToken()
+                            @Html.ValidationSummary()
+                            <div class="col-md-6 wthree_contact_left_grid">
+                                <input type="text" name="Name" placeholder="Name" required="">
+                                <input type="email" name="Email" placeholder="Email" required="">
+                                <input type="text" name="Telephone" placeholder="Telephone" required="">
+                                <input type="text" name="Subject" placeholder="Subject" required="">
+                            </div>
+                            <div class="col-md-6 wthree_contact_left_grid">
+                                <textarea name="Message" placeholder="Message..." required=""></textarea>
+                                <input type="submit" value="Submit">
+                            </div>
+                            <div class="clearfix"> </div>
+
+                        </form>
+                    </div>
+
+
+                </div>
+
+            </div>
+        </div>
+        <!-- //mid-services -->
+        <!-- /map -->
+        <div class="map">
+            <iframe src="https://www.google.com.ng/maps/place/Compunet+Limited/9.9188297,8.8865769,17z/am=t/data=!4m18!1m12!4m11!1m3!2m2!1d8.888925!2d9.9184538!1m6!1m2!1s0x105372532f3ff491:0x591e7bfdcba4f9ef!2scompunet+limited!2m2!1d8.8882411!2d9.9184611!3m4!1s0x105372532f3ff491:0x591e7bfdcba4f9ef!8m2!3d9.9184611!4d8.8882411"
+                    style="border:0"></iframe>
+
+        </div>
+        <!-- //map -->
+    
+
+        @*<a href="#home" class="scroll" id="toTop" style="display: block;"> <span id="toTopHover" style="opacity: 1;"> </span></a>*@
+

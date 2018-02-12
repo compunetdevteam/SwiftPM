@@ -1,0 +1,57 @@
+﻿@model IEnumerable<SwiftPMModel.ModuleTask>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ProjectModule.ModuleName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ModuleTaskName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ModuleTaskDescription)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreatedDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ExpectedCompletionDate)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProjectModule.ModuleName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ModuleTaskName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ModuleTaskDescription)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CreatedDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ExpectedCompletionDate)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ModuleTaskId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ModuleTaskId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ModuleTaskId })
+        </td>
+    </tr>
+}
+
+</table>
